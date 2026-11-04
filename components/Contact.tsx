@@ -14,8 +14,7 @@ export default function Contact() {
   return (
     <Section id="contact" title="Contact">
       <div className="grid gap-10 md:grid-cols-[minmax(0,1fr)_16rem] md:gap-12">
-        <ContactForm />
-        <div>
+        <div className="md:order-2">
           <p className="max-w-prose">{forBusinesses}</p>
           <dl className="mt-6 grid grid-cols-[5.5rem_minmax(0,1fr)] items-center gap-x-4 text-sm">
             {links.map((link) => (
@@ -28,6 +27,7 @@ export default function Contact() {
             ))}
           </dl>
         </div>
+        <ContactForm />
       </div>
     </Section>
   );

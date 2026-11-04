@@ -44,7 +44,7 @@ a.link:hover { text-decoration-thickness: 2px; }
 
 /* Career statusbar: Odoo's record statusbar. Stacked with downward notches below 640px. */
 .stage { --notch: 10px; clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--notch)), 50% 100%, 0 calc(100% - var(--notch))); }
-.stage > a { display: block; padding: 0.625rem 1rem calc(0.625rem + var(--notch)); }
+.stage > a { padding: 0.625rem 1rem calc(0.625rem + var(--notch)); }
 .stage + .stage { margin-top: calc(var(--notch) * -1 + 3px); clip-path: polygon(0 0, 50% var(--notch), 100% 0, 100% calc(100% - var(--notch)), 50% 100%, 0 calc(100% - var(--notch))); }
 .stage + .stage > a { padding-top: calc(0.625rem + var(--notch)); }
 .stage:last-child { clip-path: polygon(0 0, 50% var(--notch), 100% 0, 100% 100%, 0 100%); }

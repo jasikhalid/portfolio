@@ -5,7 +5,7 @@ export default function Hero() {
   return (
     <section aria-labelledby="hero-title" className="mx-auto max-w-page px-4 pb-[72px] pt-12 sm:px-6 lg:pb-28 lg:pt-24">
       <p className="text-slate">
-        {site.name} · {site.role} at {site.employer.name}, {site.employer.place}
+        {site.role} at {site.employer.name}, {site.employer.place}
       </p>
       <h1 id="hero-title" className="mt-4 max-w-[24ch] text-h1">{hero.headline}</h1>
       <p className="mt-5 max-w-prose text-lg text-slate">{hero.availability}</p>
