@@ -1,34 +1,41 @@
+import { ArrowUpRight } from "lucide-react";
 import { contact, forBusinesses } from "@/content/site";
 import ContactForm from "./ContactForm";
-import Section from "./Section";
 
 const links = [
-  { label: "Email", value: contact.email, href: `mailto:${contact.email}` },
-  { label: "LinkedIn", value: "muhammed-jasi", href: contact.linkedin },
-  { label: "GitHub", value: "jasikhalid", href: contact.github },
-  { label: "WhatsApp", value: contact.phone, href: contact.whatsapp },
-  { label: "Résumé", value: "PDF, 290 KB", href: contact.resume },
+  { label: "LinkedIn", href: contact.linkedin },
+  { label: "GitHub", href: contact.github },
+  { label: "WhatsApp", href: contact.whatsapp },
+  { label: "Résumé (PDF)", href: contact.resume },
 ];
 
 export default function Contact() {
   return (
-    <Section id="contact" title="Contact">
-      <div className="grid gap-10 md:grid-cols-[minmax(0,1fr)_16rem] md:gap-12">
-        <div className="md:order-2">
-          <p className="max-w-prose">{forBusinesses}</p>
-          <dl className="mt-6 grid grid-cols-[5.5rem_minmax(0,1fr)] items-center gap-x-4 text-sm">
-            {links.map((link) => (
-              <div key={link.label} className="contents">
-                <dt className="font-semibold text-slate">{link.label}</dt>
-                <dd className="min-w-0">
-                  <a href={link.href} className="link flex min-h-11 items-center break-all">{link.value}</a>
-                </dd>
-              </div>
-            ))}
-          </dl>
+    <section id="contact" aria-labelledby="contact-title" className="mx-auto max-w-page px-4 py-16 sm:px-6 lg:py-24">
+      <div className="grid gap-4 lg:grid-cols-2">
+        <div className="tile flex flex-col justify-between bg-ink p-6 text-canvas sm:p-10">
+          <div>
+            <p className="text-sm font-semibold opacity-80">Contact</p>
+            <h2 id="contact-title" className="mt-2 font-display text-h2">Have an Odoo project or a role?</h2>
+            <p className="mt-5 max-w-prose text-lg leading-relaxed opacity-80">{forBusinesses}</p>
+          </div>
+          <div className="mt-10">
+            <a href={`mailto:${contact.email}`} className="inline-flex min-h-11 items-center break-all font-display text-xl font-bold underline decoration-2 underline-offset-4 sm:text-2xl">
+              {contact.email}
+            </a>
+            <ul className="mt-6 flex flex-wrap gap-2">
+              {links.map((link) => (
+                <li key={link.label}>
+                  <a href={link.href} className="inline-flex min-h-11 items-center gap-1 rounded-full border px-4 text-sm font-semibold hover:bg-canvas hover:text-ink" style={{ borderColor: "color-mix(in srgb, currentColor 30%, transparent)" }}>
+                    {link.label} <ArrowUpRight size={14} aria-hidden="true" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
         <ContactForm />
       </div>
-    </Section>
+    </section>
   );
 }

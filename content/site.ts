@@ -19,6 +19,8 @@ export type CaseFile = {
   slug: string;
   title: string;
   context: string;
+  summary: string;
+  stack: string[];
   fields: { label: string; value: string; href?: string }[];
   problem: string;
   built: string[];
@@ -26,7 +28,9 @@ export type CaseFile = {
   result: string;
 };
 
-export type SkillGroup = { label: string; items: string[] };
+export type SkillGroup = { icon: "database" | "shield" | "layout" | "boxes" | "plug" | "rocket" | "sprout"; label: string; items: string[] };
+
+export type SideProject = { title: string; context: string; text: string; stack: string[] };
 
 export const site = {
   url: "https://jasikhalid.in",
@@ -58,8 +62,10 @@ export const nav = [
 ];
 
 export const hero = {
-  headline: "I build Odoo modules: the wizards, reports and access rules a business runs on every day.",
-  availability: "Open to Odoo roles in Kerala, the Gulf or remote, and to freelance Odoo work.",
+  headline: "Odoo modules that run the business.",
+  intro:
+    "I'm Muhammed Jasi, a Junior Odoo Developer at Codex Business Solutions. I build custom modules: ORM models, OWL dashboards, QWeb reports, wizards and access rules.",
+  availability: "Open to Odoo roles and freelance work",
 };
 
 // Oldest first, like an Odoo statusbar. The last stage is the current one.
@@ -151,6 +157,8 @@ export const work: CaseFile[] = [
     slug: "vehicle-repair",
     title: "Vehicle Repair Management System",
     context: "Custom module, built during training at Cybrosys",
+    summary: "One repair order that moves from intake to technician, parts and invoice without leaving Odoo.",
+    stack: ["Odoo 19", "Python", "OWL", "QWeb", "PostgreSQL", "WhatsApp/SMS API"],
     fields: [
       { label: "Platform", value: "Odoo 19" },
       { label: "Apps", value: "Fleet, Stock, Sales, Website" },
@@ -177,6 +185,8 @@ export const work: CaseFile[] = [
     slug: "accounting-dashboard",
     title: "Real-time Accounting Dashboard",
     context: "Custom module, built during training at Cybrosys",
+    summary: "Live KPI cards and charts on journal entries, with click-through to the records behind each number.",
+    stack: ["Odoo", "OWL", "Chart.js", "Python"],
     fields: [
       { label: "Platform", value: "Odoo, custom module" },
       { label: "Data", value: "account.move, account.move.line" },
@@ -198,14 +208,21 @@ export const work: CaseFile[] = [
   },
 ];
 
+export const sideProjects: SideProject[] = [
+  { title: "ClanCulture", context: "Internship, Soften Technologies", text: "E-commerce features: product categories, filtering and a secure purchase flow.", stack: ["Django", "React", "REST"] },
+  { title: "EventEase", context: "Internship, Regional Technologies", text: "Event management platform with role-based booking and access logic.", stack: ["Django", "React", "RBAC"] },
+  { title: "Inventory system", context: "Freelance, client in Canada", text: "Item entry, stock updates and reporting for a waste-management platform.", stack: ["Python"] },
+  { title: "Business website", context: "Freelance, client in Saudi Arabia", text: "Designed, deployed and maintained a responsive site, hosted on Linux.", stack: ["Web", "Linux"] },
+];
+
 export const skills: SkillGroup[] = [
-  { label: "Model data and business logic", items: ["Python", "Odoo ORM", "Wizards", "PostgreSQL", "Django", "MySQL"] },
-  { label: "Control who sees what", items: ["Security groups", "ir.model.access", "ir.rule", "Role-based access in Django"] },
-  { label: "Build the screens", items: ["OWL", "QWeb views and reports", "Odoo Website and portal", "React", "JavaScript"] },
-  { label: "Extend Odoo apps", items: ["Inventory", "Sales", "Purchase", "CRM", "Fleet", "Accounting", "POS"] },
-  { label: "Connect other systems", items: ["REST APIs", "Payment gateways", "WhatsApp and SMS APIs"] },
-  { label: "Ship it", items: ["Git", "Linux deployment"] },
-  { label: "Learning now", items: ["ERPNext", "Frappe"] },
+  { icon: "database", label: "Model data and business logic", items: ["Python", "Odoo ORM", "Wizards", "PostgreSQL", "Django", "MySQL"] },
+  { icon: "shield", label: "Control who sees what", items: ["Security groups", "ir.model.access", "ir.rule", "Role-based access in Django"] },
+  { icon: "layout", label: "Build the screens", items: ["OWL", "QWeb views and reports", "Odoo Website and portal", "React", "JavaScript"] },
+  { icon: "boxes", label: "Extend Odoo apps", items: ["Inventory", "Sales", "Purchase", "CRM", "Fleet", "Accounting", "POS"] },
+  { icon: "plug", label: "Connect other systems", items: ["REST APIs", "Payment gateways", "WhatsApp and SMS APIs"] },
+  { icon: "rocket", label: "Ship it", items: ["Git", "Linux deployment"] },
+  { icon: "sprout", label: "Learning now", items: ["ERPNext", "Frappe"] },
 ];
 
 // DRAFT: keep it short and in your own voice.

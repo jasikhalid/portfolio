@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { site } from "@/content/site";
 import "./globals.css";
 
-const sans = IBM_Plex_Sans({ subsets: ["latin"], weight: ["400", "600"], display: "swap", variable: "--font-plex-sans" });
-const mono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400"], display: "swap", variable: "--font-plex-mono" });
+const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-inter" });
+const grotesk = Space_Grotesk({ subsets: ["latin"], weight: ["700"], display: "swap", variable: "--font-grotesk" });
 
 const title = `${site.name}, Odoo Developer in Kerala`;
 
@@ -22,16 +22,16 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f4f6f7" },
-    { media: "(prefers-color-scheme: dark)", color: "#0f1626" },
+    { media: "(prefers-color-scheme: light)", color: "#f5f5f7" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0b" },
   ],
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${sans.variable} ${mono.variable}`}>
+    <html lang="en" className={`${inter.variable} ${grotesk.variable}`}>
       <body id="top" className="font-sans text-base">
-        <a href="#main" className="sr-only z-50 rounded bg-sheet px-4 py-3 font-semibold focus:not-sr-only focus:fixed focus:left-4 focus:top-2">
+        <a href="#main" className="sr-only z-50 rounded-full bg-ink px-5 py-3 text-canvas font-semibold focus:not-sr-only focus:fixed focus:left-4 focus:top-2">
           Skip to content
         </a>
         <Header />

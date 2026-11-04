@@ -66,7 +66,7 @@ export default function ContactForm() {
   }
 
   const input =
-    "mt-1.5 block w-full rounded border bg-paper px-3 py-2.5 text-base text-ink aria-[invalid=true]:border-[var(--danger)] border-rule";
+    "mt-2 block w-full rounded-xl border border-line bg-canvas px-4 py-3 text-base text-ink transition-colors focus:border-teal aria-[invalid=true]:border-danger";
 
   function fieldProps(field: Field) {
     return {
@@ -80,12 +80,12 @@ export default function ContactForm() {
   }
 
   function error(field: Field) {
-    return errors[field] && <p id={`contact-${field}-error`} className="mt-1.5 text-sm text-[var(--danger)]">{errors[field]}</p>;
+    return errors[field] && <p id={`contact-${field}-error`} className="mt-1.5 text-sm text-danger">{errors[field]}</p>;
   }
 
   return (
-    <form ref={form} onSubmit={onSubmit} noValidate aria-labelledby="contact-form-title" className="rounded border border-rule bg-sheet p-5 sm:p-8">
-      <h3 id="contact-form-title" className="text-h3">Send a message</h3>
+    <form ref={form} onSubmit={onSubmit} noValidate aria-labelledby="contact-form-title" className="tile p-6 sm:p-10">
+      <h3 id="contact-form-title" className="font-display text-h3">Send a message</h3>
       <div className="mt-5 space-y-5">
         <div>
           <label htmlFor="contact-name" className="font-semibold">Name</label>
@@ -107,13 +107,13 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status.state === "sending"}
-        className="mt-6 inline-flex min-h-12 w-full items-center justify-center rounded bg-green px-6 font-semibold text-on-green hover:opacity-90 disabled:opacity-60 sm:w-auto"
+        className="mt-6 inline-flex min-h-12 w-full items-center justify-center rounded-full bg-teal px-7 font-semibold text-on-teal transition-opacity hover:opacity-90 disabled:opacity-60 sm:w-auto"
       >
         {status.state === "sending" ? "Sending…" : "Send message"}
       </button>
       <div role="status" aria-live="polite" className="mt-4 text-sm empty:hidden">
         {status.state === "sent" && <p>Message sent. I&apos;ll reply to {status.email}.</p>}
-        {status.state === "failed" && <p className="text-[var(--danger)]">{status.message}</p>}
+        {status.state === "failed" && <p className="text-danger">{status.message}</p>}
       </div>
     </form>
   );
