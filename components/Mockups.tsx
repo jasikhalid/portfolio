@@ -1,4 +1,4 @@
-import { ArrowRight, Car, Check, FileText, MessageCircle, Package, ReceiptText, ShieldCheck, Wrench } from "lucide-react";
+import { Car, Check, FileText, MessageCircle, Package, ReceiptText, ShieldCheck, Wrench } from "lucide-react";
 
 // Decorative sketches of the two modules. They show layout only: no real records or figures.
 
@@ -89,17 +89,16 @@ const FLOW = [
 export function RepairFlow() {
   return (
     <div aria-hidden="true" className="text-[13px]">
-      <ol className="grid grid-cols-2 gap-3 sm:flex sm:items-stretch sm:gap-0">
+      <ol className="grid grid-cols-2 gap-3">
         {FLOW.map(({ icon: Icon, step, app }, i) => (
-          <li key={step} className="flex items-center sm:flex-1">
+          <li key={step} className="flex">
             <div className="flex w-full flex-col rounded-2xl border border-line bg-tile p-3.5">
               <span className={`grid h-9 w-9 place-items-center rounded-xl ${i === FLOW.length - 1 ? "bg-teal text-on-teal" : "bg-teal-soft text-teal"}`}>
                 <Icon size={18} />
               </span>
-              <span className="mt-3 font-semibold">{step}</span>
+              <span className="mt-3 font-semibold"><span className="mr-1.5 text-muted">{i + 1}</span>{step}</span>
               <span className="text-muted">{app}</span>
             </div>
-            {i < FLOW.length - 1 && <ArrowRight size={16} className="mx-1.5 hidden shrink-0 text-muted sm:block" />}
           </li>
         ))}
       </ol>

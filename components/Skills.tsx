@@ -20,7 +20,7 @@ export default function Skills() {
         {skills.map((group, i) => {
           const Icon = ICONS[group.icon];
           return (
-            <li key={group.label} className={`tile p-6 ${i === 0 ? "lg:col-span-2" : ""}`}>
+            <li key={group.label} className={`reveal tile lift p-6 ${i === 0 ? "lg:col-span-2" : ""}`}>
               <span className={`grid h-11 w-11 place-items-center rounded-xl ${i % 2 ? "bg-plum-soft text-plum" : "bg-teal-soft text-teal"}`}>
                 <Icon size={20} aria-hidden="true" />
               </span>

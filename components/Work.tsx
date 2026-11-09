@@ -12,14 +12,14 @@ function List({ items }: { items: string[] }) {
   );
 }
 
-function Case({ file, mock, wide }: { file: CaseFile; mock: React.ReactNode; wide?: boolean }) {
+function Case({ file, mock, flip }: { file: CaseFile; mock: React.ReactNode; flip?: boolean }) {
   const titleId = `${file.slug}-title`;
   return (
-    <article aria-labelledby={titleId} className={`tile flex flex-col overflow-hidden ${wide ? "lg:col-span-2" : ""}`}>
-      <div className="flex flex-1 items-center bg-sunken p-4 sm:p-8 [&>*]:w-full">
+    <article aria-labelledby={titleId} className="reveal tile grid overflow-hidden lg:grid-cols-2">
+      <div className={`flex items-center bg-sunken p-4 sm:p-10 [&>*]:w-full ${flip ? "lg:order-2" : ""}`}>
         {mock}
       </div>
-      <div className="flex flex-col p-6 sm:p-8">
+      <div className="flex flex-col justify-center p-6 sm:p-10">
         <p className="text-sm text-muted">{file.context}</p>
         <h3 id={titleId} className="mt-1 font-display text-h3">{file.title}</h3>
         <p className="mt-3 max-w-prose leading-relaxed">{file.summary}</p>
@@ -55,14 +55,14 @@ export default function Work() {
   const [repair, dashboard] = work;
   return (
     <Section id="work" label="Selected work" title="Two Odoo modules, built end to end.">
-      <div className="grid gap-4 lg:grid-cols-3">
-        {repair && <Case file={repair} mock={<RepairFlow />} wide />}
-        {dashboard && <Case file={dashboard} mock={<DashboardMock />} />}
+      <div className="grid gap-4">
+        {repair && <Case file={repair} mock={<RepairFlow />} />}
+        {dashboard && <Case file={dashboard} mock={<div className="mx-auto max-w-md"><DashboardMock /></div>} flip />}
       </div>
       <h3 className="mt-14 font-display text-h3">Also built</h3>
       <ul className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {sideProjects.map((project) => (
-          <li key={project.title} className="tile flex flex-col p-6">
+          <li key={project.title} className="reveal tile lift flex flex-col p-6">
             <p className="text-sm text-muted">{project.context}</p>
             <p className="mt-1 text-lg font-semibold">{project.title}</p>
             <p className="mt-2 flex-1 text-[15px] leading-relaxed text-muted">{project.text}</p>

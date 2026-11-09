@@ -17,6 +17,9 @@ export default {
         plum: "var(--plum)",
         "plum-soft": "var(--plum-soft)",
         danger: "var(--danger)",
+        brand: "var(--brand)",
+        "on-brand": "var(--on-brand)",
+        "on-brand-muted": "var(--on-brand-muted)",
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],

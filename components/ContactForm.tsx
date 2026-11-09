@@ -84,7 +84,7 @@ export default function ContactForm() {
   }
 
   return (
-    <form ref={form} onSubmit={onSubmit} noValidate aria-labelledby="contact-form-title" className="tile p-6 sm:p-10">
+    <form ref={form} onSubmit={onSubmit} noValidate aria-labelledby="contact-form-title" className="reveal tile p-6 sm:p-10">
       <h3 id="contact-form-title" className="font-display text-h3">Send a message</h3>
       <div className="mt-5 space-y-5">
         <div>
@@ -107,7 +107,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status.state === "sending"}
-        className="mt-6 inline-flex min-h-12 w-full items-center justify-center rounded-full bg-teal px-7 font-semibold text-on-teal transition-opacity hover:opacity-90 disabled:opacity-60 sm:w-auto"
+        className="mt-6 inline-flex min-h-12 w-full items-center justify-center rounded-full bg-brand px-7 font-semibold text-on-brand transition-transform hover:-translate-y-0.5 disabled:opacity-60 sm:w-auto"
       >
         {status.state === "sending" ? "Sending…" : "Send message"}
       </button>

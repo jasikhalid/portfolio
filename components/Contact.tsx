@@ -13,11 +13,11 @@ export default function Contact() {
   return (
     <section id="contact" aria-labelledby="contact-title" className="mx-auto max-w-page px-4 py-16 sm:px-6 lg:py-24">
       <div className="grid gap-4 lg:grid-cols-2">
-        <div className="tile flex flex-col justify-between bg-ink p-6 text-canvas sm:p-10">
+        <div className="reveal tile flex flex-col justify-between border-transparent bg-brand p-6 text-on-brand sm:p-10">
           <div>
-            <p className="text-sm font-semibold opacity-80">Contact</p>
+            <p className="text-sm font-semibold text-on-brand-muted">Contact</p>
             <h2 id="contact-title" className="mt-2 font-display text-h2">Have an Odoo project or a role?</h2>
-            <p className="mt-5 max-w-prose text-lg leading-relaxed opacity-80">{forBusinesses}</p>
+            <p className="mt-5 max-w-prose text-lg leading-relaxed text-on-brand-muted">{forBusinesses}</p>
           </div>
           <div className="mt-10">
             <a href={`mailto:${contact.email}`} className="inline-flex min-h-11 items-center break-all font-display text-xl font-bold underline decoration-2 underline-offset-4 sm:text-2xl">
@@ -26,7 +26,7 @@ export default function Contact() {
             <ul className="mt-6 flex flex-wrap gap-2">
               {links.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="inline-flex min-h-11 items-center gap-1 rounded-full border px-4 text-sm font-semibold hover:bg-canvas hover:text-ink" style={{ borderColor: "color-mix(in srgb, currentColor 30%, transparent)" }}>
+                  <a href={link.href} className="inline-flex min-h-11 items-center gap-1 rounded-full border px-4 text-sm font-semibold hover:bg-white hover:text-[#6b3f60]" style={{ borderColor: "color-mix(in srgb, currentColor 30%, transparent)" }}>
                     {link.label} <ArrowUpRight size={14} aria-hidden="true" />
                   </a>
                 </li>

@@ -33,6 +33,8 @@ export type SkillGroup = { icon: "database" | "shield" | "layout" | "boxes" | "p
 export type SideProject = { title: string; context: string; text: string; stack: string[] };
 
 export const site = {
+  // Add your photo to /public and set it here, e.g. { src: "/jasi.jpg", alt: "Muhammed Jasi" }.
+  photo: undefined as { src: string; alt: string } | undefined,
   url: "https://jasikhalid.in",
   name: "Muhammed Jasi",
   alternateName: "Jasi Khalid",

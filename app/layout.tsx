@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Bricolage_Grotesque, Inter } from "next/font/google";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { site } from "@/content/site";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-inter" });
-const grotesk = Space_Grotesk({ subsets: ["latin"], weight: ["700"], display: "swap", variable: "--font-grotesk" });
+const grotesk = Bricolage_Grotesque({ subsets: ["latin"], weight: ["700", "800"], display: "swap", variable: "--font-grotesk" });
 
 const title = `${site.name}, Odoo Developer in Kerala`;
 
