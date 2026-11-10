@@ -29,7 +29,8 @@ export type CaseFile = {
   result: string;
 };
 
-export type SkillGroup = { icon: "database" | "shield" | "layout" | "boxes" | "plug" | "rocket" | "sprout"; label: string; items: string[] };
+// usedIn lists case-file slugs or side-project titles where the skill shows up, so the stack reads as evidence.
+export type SkillGroup = { code: string; label: string; items: string[]; usedIn: string[] };
 
 export type SideProject = { title: string; context: string; text: string; stack: string[] };
 
@@ -259,14 +260,33 @@ export const sideProjects: SideProject[] = [
 ];
 
 export const skills: SkillGroup[] = [
-  { icon: "database", label: "Model data and business logic", items: ["Python", "Odoo ORM", "Wizards", "PostgreSQL", "Django", "MySQL"] },
-  { icon: "shield", label: "Control who sees what", items: ["Security groups", "ir.model.access", "ir.rule", "Role-based access in Django"] },
-  { icon: "layout", label: "Build the screens", items: ["OWL", "QWeb views and reports", "Odoo Website and portal", "React", "JavaScript"] },
-  { icon: "boxes", label: "Extend Odoo apps", items: ["Inventory", "Sales", "Purchase", "CRM", "Fleet", "Accounting", "POS"] },
-  { icon: "plug", label: "Connect other systems", items: ["REST APIs", "Payment gateways", "WhatsApp and SMS APIs"] },
-  { icon: "rocket", label: "Ship it", items: ["Git", "Linux deployment"] },
-  { icon: "sprout", label: "Build on ERPNext", items: ["ERPNext v16", "Frappe apps", "Vue 3 / frappe-ui", "Workflows and fixtures", "Tally migration", "Integration tests"] },
+  { code: "210", label: "Model data and business logic", items: ["Python", "Odoo ORM", "Wizards", "PostgreSQL", "Django", "MySQL"], usedIn: ["vehicle-repair", "accounting-dashboard", "garment-erp"] },
+  { code: "220", label: "Control who sees what", items: ["Security groups", "ir.model.access", "ir.rule", "Role-based access in Django"], usedIn: ["vehicle-repair", "garment-erp", "EventEase"] },
+  { code: "230", label: "Build the screens", items: ["OWL", "QWeb views and reports", "Odoo Website and portal", "React", "Next.js", "JavaScript"], usedIn: ["vehicle-repair", "accounting-dashboard", "ClanCulture"] },
+  { code: "240", label: "Extend Odoo apps", items: ["Inventory", "Sales", "Purchase", "CRM", "Fleet", "Accounting", "POS"], usedIn: ["vehicle-repair", "accounting-dashboard"] },
+  { code: "250", label: "Build on ERPNext", items: ["ERPNext v16", "Frappe apps", "Vue 3 / frappe-ui", "Workflows and fixtures", "Tally migration", "Integration tests"], usedIn: ["garment-erp"] },
+  { code: "260", label: "Connect other systems", items: ["REST APIs", "Payment gateways", "WhatsApp and SMS APIs"], usedIn: ["vehicle-repair", "ClanCulture"] },
+  { code: "270", label: "Ship it", items: ["Git", "GitHub Actions", "Linux deployment"], usedIn: ["garment-erp", "Business website"] },
+  { code: "280", label: "Think with AI", items: ["Prompt engineering", "Building with AI"], usedIn: [] },
 ];
+
+// The "Prompting" section. TODO(jasi): this brief is an illustrative example written for the redesign,
+// based only on the Vehicle Repair module's public description. Replace it with a real prompt you have used.
+export const prompting = {
+  title: "I brief an AI the way I'd brief a senior colleague.",
+  intro:
+    "Prompting is a spec, not a wish. The model gets the same things a good developer would ask for: the context, the exact task, the constraints and a way to check the answer.",
+  task: "Record rules for the Vehicle Repair module",
+  vague: "write odoo security for my repair module",
+  briefed: [
+    { key: "Context", value: "Odoo 19 custom module vehicle_repair. A repair.order links a fleet.vehicle, a res.partner and the stock moves for parts." },
+    { key: "Task", value: "Write ir.rule record rules: technicians see only repair orders assigned to them; repair managers see all of them." },
+    { key: "Constraints", value: "Use the groups already in security/groups.xml. No sudo(). Must stay correct in a multi-company database." },
+    { key: "Output", value: "One XML file, then a short table of test cases to run while logged in as each role." },
+    { key: "Check", value: "Before writing code, list every assumption you are making about field names, and stop if one is unclear." },
+  ],
+  takeaways: ["Name the real models", "State what must not happen", "Ask for its assumptions first"],
+};
 
 // DRAFT: keep it short and in your own voice.
 export const about = [
