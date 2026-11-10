@@ -3,3 +3,8 @@ node_modules
 out
 .DS_Store
 *.tsbuildinfo
+.npm-cache/
+logs/
+test-results/
+playwright-report/
+.local-browsers/

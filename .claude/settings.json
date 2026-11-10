@@ -1,0 +1,51 @@
+{
+  "env": {
+    "NEXT_TELEMETRY_DISABLED": "1",
+    "npm_config_cache": "./.npm-cache",
+    "PLAYWRIGHT_BROWSERS_PATH": "0"
+  },
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch"
+    ],
+    "deny": [
+      "Bash(git push *)",
+      "Bash(git reset --hard *)",
+      "Bash(sudo *)",
+      "Bash(vercel *)",
+      "Bash(netlify *)",
+      "Read(~/.ssh/**)",
+      "Read(~/.aws/**)",
+      "Read(~/.zshrc)",
+      "Read(~/Desktop/**)",
+      "Read(~/Downloads/**)",
+      "Read(~/Pictures/**)"
+    ]
+  },
+  "sandbox": {
+    "enabled": true,
+    "failIfUnavailable": true,
+    "autoAllowBashIfSandboxed": true,
+    "allowUnsandboxedCommands": false,
+    "filesystem": {
+      "denyRead": ["~/"],
+      "allowRead": [".", "~/.gitconfig", "~/.nvm"]
+    },
+    "network": {
+      "allowLocalBinding": true,
+      "allowedDomains": [
+        "registry.npmjs.org",
+        "*.npmjs.org",
+        "registry.yarnpkg.com",
+        "github.com",
+        "*.githubusercontent.com",
+        "fonts.googleapis.com",
+        "fonts.gstatic.com",
+        "cdn.playwright.dev",
+        "playwright.download.prss.microsoft.com",
+        "playwright.azureedge.net"
+      ]
+    }
+  }
+}
