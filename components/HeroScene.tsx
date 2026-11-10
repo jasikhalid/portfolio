@@ -5,14 +5,12 @@ import {
   BoxGeometry,
   CanvasTexture,
   Color,
-  DirectionalLight,
   EdgesGeometry,
   Group,
-  HemisphereLight,
   LineBasicMaterial,
   LineSegments,
   Mesh,
-  MeshLambertMaterial,
+  MeshBasicMaterial,
   OrthographicCamera,
   SRGBColorSpace,
   Scene,
@@ -73,13 +71,9 @@ export default function HeroScene({ onReady }: { onReady: () => void }) {
     const scene = new Scene();
     const camera = new OrthographicCamera(-1, 1, 1, -1, 0.1, 100);
     camera.position.set(6, 5.2, 6);
-    camera.lookAt(0, 1, 0);
+    camera.lookAt(0, 1.2, 0);
 
-    const hemi = new HemisphereLight(0xffffff, 0x888888, 2.2);
-    const sun = new DirectionalLight(0xffffff, 1.4);
-    sun.position.set(-3, 6, 4);
-    scene.add(hemi, sun);
-
+    // Unlit, flat faces: the same three tones as the SVG drawing (lid, front, side), like a printed diagram.
     const stack = new Group();
     scene.add(stack);
 
@@ -87,7 +81,7 @@ export default function HeroScene({ onReady }: { onReady: () => void }) {
     const edges = new EdgesGeometry(geometry);
     const disposables: { dispose: () => void }[] = [geometry, edges];
 
-    type Slab = { mesh: Mesh; line: LineSegments; materials: MeshLambertMaterial[]; i: number };
+    type Slab = { mesh: Mesh; line: LineSegments; materials: MeshBasicMaterial[]; i: number };
     const slabs: Slab[] = [];
     const lineMaterial = new LineBasicMaterial();
     disposables.push(lineMaterial);
@@ -113,9 +107,9 @@ export default function HeroScene({ onReady }: { onReady: () => void }) {
 
       MODULES.forEach((m, i) => {
         const top = i === MODULES.length - 1;
-        const front = new MeshLambertMaterial({ map: labelTexture(m.name, m.model, top ? onSignal : ink, top ? signal : raised, top ? onSignal : muted) });
-        const side = new MeshLambertMaterial({ color: new Color(sunken) });
-        const lid = new MeshLambertMaterial({ color: new Color(top ? ink : paper) });
+        const front = new MeshBasicMaterial({ map: labelTexture(m.name, m.model, top ? onSignal : ink, top ? signal : raised, top ? onSignal : muted) });
+        const side = new MeshBasicMaterial({ color: new Color(sunken) });
+        const lid = new MeshBasicMaterial({ color: new Color(top ? ink : paper) });
         // BoxGeometry face order: +x, -x, +y, -y, +z, -z
         const materials = [side, side, lid, side, front, side];
         const mesh = new Mesh(geometry, materials);
@@ -156,7 +150,7 @@ export default function HeroScene({ onReady }: { onReady: () => void }) {
       for (const { mesh, line, i } of slabs) {
         // Each slab settles a little later than the one below it.
         const local = ease(Math.min(1, Math.max(0, (now - start - i * 90) / ASSEMBLE_MS)));
-        const y = i * (THICK + gap) + (1 - local) * 0.25 * i;
+        const y = i * (THICK + gap) + (1 - local) * 0.1 * i;
         mesh.position.y = line.position.y = y;
         mesh.rotation.y = line.rotation.y = (1 - local) * 0.35 * (i % 2 ? 1 : -1);
       }

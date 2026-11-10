@@ -1,6 +1,7 @@
 import { ArrowDown, ArrowRight } from "lucide-react";
 import { hero, site, stages } from "@/content/site";
 import HeroFigure from "./HeroFigure";
+import Magnetic from "./Magnetic";
 import ModuleStack from "./ModuleStack";
 
 const d = (ms: number) => ({ "--d": `${ms}ms` }) as React.CSSProperties;
@@ -39,12 +40,16 @@ export default function Hero() {
           </h1>
           <p className="enter mt-8 max-w-[46ch] text-lead text-muted" style={d(260)}>{hero.intro}</p>
           <div className="enter mt-10 flex flex-wrap gap-3" style={d(340)}>
-            <a href="#contact" className="btn btn-primary">
-              Hire me or start a project <ArrowRight size={18} aria-hidden="true" className="arrow" />
-            </a>
-            <a href="#work" className="btn btn-ghost">
-              See the work <ArrowDown size={18} aria-hidden="true" className="arrow" />
-            </a>
+            <Magnetic>
+              <a href="#contact" className="btn btn-primary">
+                Hire me or start a project <ArrowRight size={18} aria-hidden="true" className="arrow" />
+              </a>
+            </Magnetic>
+            <Magnetic>
+              <a href="#work" className="btn btn-ghost">
+                See the work <ArrowDown size={18} aria-hidden="true" className="arrow" />
+              </a>
+            </Magnetic>
           </div>
         </div>
 

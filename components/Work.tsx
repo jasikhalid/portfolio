@@ -11,7 +11,7 @@ export default function Work() {
       code="100"
       label="Selected work"
       title="ERP work on Odoo and ERPNext, built end to end."
-      intro="Three case files. Each one starts with the business problem and ends with what's running now."
+      intro="Three case files. Each one starts with the business problem and ends with what was built."
     >
       <ol className="border-t border-rule">
         {work.map((file, i) => {

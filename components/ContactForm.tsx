@@ -66,7 +66,7 @@ export default function ContactForm() {
   }
 
   const input =
-    "mt-2 block w-full rounded-sm border border-rule bg-paper px-4 py-3 text-base text-ink transition-colors duration-fast hover:border-muted focus:border-ink focus-visible:outline-offset-0 aria-[invalid=true]:border-signal";
+    "mt-2 block w-full rounded-sm border border-muted bg-paper px-4 py-3 text-base text-ink transition-colors duration-fast hover:border-ink focus:border-ink focus-visible:outline-offset-0 aria-[invalid=true]:border-signal";
 
   function fieldProps(field: Field) {
     return {
@@ -86,6 +86,7 @@ export default function ContactForm() {
   return (
     <form ref={form} onSubmit={onSubmit} noValidate aria-labelledby="contact-form-title" className="rounded border border-ink bg-raised p-5 sm:p-8">
       <h3 id="contact-form-title" className="label"><span className="text-signal">610</span> · Send a message</h3>
+      <p className="mt-2 text-sm text-muted">All three fields are required.</p>
       <div className="mt-6 space-y-5">
         <div>
           <label htmlFor="contact-name" className="text-sm font-medium">Name</label>
