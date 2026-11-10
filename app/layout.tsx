@@ -8,7 +8,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-inter" });
 const grotesk = Bricolage_Grotesque({ subsets: ["latin"], weight: ["700", "800"], display: "swap", variable: "--font-grotesk" });
 
-const title = `${site.name}, Odoo Developer in Kerala`;
+const title = `${site.name}, Odoo & ERPNext Developer in Kerala`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),

@@ -65,10 +65,10 @@ export const nav = [
 ];
 
 export const hero = {
-  headline: "Odoo modules that run the business.",
+  headline: "Odoo & ERPNext apps that run the business.",
   intro:
     "I'm Muhammed Jasi, an Odoo Developer at Codex Business Solutions. I build custom Odoo modules and ERPNext/Frappe apps: data models, dashboards, reports, workflows and access rules.",
-  availability: "Open to Odoo / ERPNext roles and freelance work",
+  availability: "Open to ERP roles and freelance work",
 };
 
 // Oldest first, like an Odoo statusbar. The last stage is the current one.
