@@ -92,7 +92,7 @@ export const experience: Entry[] = [
     place: "Tirur",
     role: "Odoo Developer",
     start: "2026",
-    // TODO: add your start month ("2026-08") and a one-line summary of public work.
+    // TODO(jasi): add your start month ("2026-08") and a one-line summary of public work.
   },
   {
     stage: "codex",

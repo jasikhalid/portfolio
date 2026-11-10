@@ -29,16 +29,17 @@ export default function Hero() {
       </div>
       <div aria-hidden="true" className="draw mt-4 h-px bg-ink" style={d(60)} />
 
-      <div className="mt-10 grid gap-12 sm:mt-14 lg:grid-cols-12 lg:gap-8">
-        <div className="lg:col-span-7 xl:col-span-8">
-          <h1 id="hero-title" className="text-display">
-            {hero.headlineLines.map((line, i) => (
-              <span key={line} className="enter-line block" style={d(i * 70)}>
-                {i === hero.headlineLines.length - 1 ? <span className="text-signal">{line}</span> : line}
-              </span>
-            ))}
-          </h1>
-          <p className="enter mt-8 max-w-[46ch] text-lead text-muted" style={d(260)}>{hero.intro}</p>
+      <h1 id="hero-title" className="mt-10 text-display sm:mt-14">
+        {hero.headlineLines.map((line, i) => (
+          <span key={line} className="enter-line block" style={d(i * 70)}>
+            {i === hero.headlineLines.length - 1 ? <span className="text-signal">{line}</span> : line}
+          </span>
+        ))}
+      </h1>
+
+      <div className="mt-10 grid items-end gap-12 lg:mt-12 lg:grid-cols-12 lg:gap-8">
+        <div className="lg:col-span-6">
+          <p className="enter max-w-[46ch] text-lead text-muted" style={d(260)}>{hero.intro}</p>
           <div className="enter mt-10 flex flex-wrap gap-3" style={d(340)}>
             <Magnetic>
               <a href="#contact" className="btn btn-primary">
@@ -53,7 +54,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <figure className="enter lg:col-span-5 xl:col-span-4" style={d(200)}>
+        <figure className="enter lg:col-span-5 lg:col-start-8 xl:col-span-4 xl:col-start-9" style={d(200)}>
           <div className="relative mx-auto aspect-[4/5] w-full max-w-[22rem] lg:max-w-none">
             <HeroFigure>
               <ModuleStack className="h-full w-full" />

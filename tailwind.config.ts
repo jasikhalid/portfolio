@@ -21,7 +21,7 @@ export default {
         mono: ["var(--font-geist-mono)", "ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
       },
       fontSize: {
-        display: ["clamp(2.9rem, 1.4rem + 6.6vw, 7.25rem)", { lineHeight: "0.94", letterSpacing: "-0.045em", fontWeight: "600" }],
+        display: ["clamp(2.6rem, 1.2rem + 6.6vw, 7.5rem)", { lineHeight: "0.94", letterSpacing: "-0.045em", fontWeight: "600" }],
         h2: ["clamp(2.1rem, 1.3rem + 3.2vw, 4rem)", { lineHeight: "1", letterSpacing: "-0.035em", fontWeight: "600" }],
         h3: ["clamp(1.35rem, 1.15rem + 0.8vw, 1.85rem)", { lineHeight: "1.15", letterSpacing: "-0.02em", fontWeight: "600" }],
         lead: ["clamp(1.125rem, 1.05rem + 0.35vw, 1.3rem)", { lineHeight: "1.55", letterSpacing: "-0.005em" }],
