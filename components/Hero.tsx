@@ -1,92 +1,91 @@
-import Image from "next/image";
-import { ArrowUpRight, Briefcase, MapPin } from "lucide-react";
-import { contact, hero, site, skills } from "@/content/site";
-import { RepairMock } from "./Mockups";
+import { ArrowDown, ArrowRight } from "lucide-react";
+import { hero, site, stages } from "@/content/site";
+import HeroFigure from "./HeroFigure";
+import ModuleStack from "./ModuleStack";
 
-const d = (seconds: number) => ({ "--d": `${seconds}s` }) as React.CSSProperties;
+const d = (ms: number) => ({ "--d": `${ms}ms` }) as React.CSSProperties;
 
-function Marquee({ items, reverse }: { items: string[]; reverse?: boolean }) {
-  return (
-    <div className="marquee overflow-hidden">
-      <div className="marquee-track flex w-max gap-2" data-reverse={reverse || undefined}>
-        {[...items, ...items].map((item, i) => (
-          <span key={i} aria-hidden={i >= items.length || undefined} className="chip whitespace-nowrap bg-tile">{item}</span>
-        ))}
-      </div>
-    </div>
-  );
-}
+const fields = [
+  { label: "Role", value: site.role },
+  { label: "At", value: site.employer.name },
+  { label: "Based in", value: "Manjeri, Kerala" },
+  { label: "Open to", value: "Kerala, the Gulf, remote" },
+];
 
 export default function Hero() {
-  const stack = skills.flatMap((group) => group.items).filter((item) => !item.includes("."));
-  const third = Math.ceil(stack.length / 3);
-
+  const last = stages.length - 1;
   return (
-    <section aria-labelledby="hero-title" className="mx-auto grid max-w-page gap-3 px-4 pb-16 pt-6 sm:gap-4 sm:px-6 lg:grid-cols-12 lg:pb-24 lg:pt-10">
-      <div className="rise tile flex flex-col justify-between border-transparent bg-brand p-6 text-on-brand sm:p-10 lg:col-span-8 lg:min-h-[34rem]">
-        <p className="inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-[13px] font-medium sm:text-sm">
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inset-0 animate-ping rounded-full bg-[#7ee0d2] opacity-60 motion-reduce:hidden" />
-            <span className="relative h-2 w-2 rounded-full bg-[#7ee0d2]" />
-          </span>
+    <section aria-labelledby="hero-title" className="page pb-6 pt-8 sm:pt-12 lg:pt-14">
+      {/* Record header, like the top of an ERP form. */}
+      <div className="enter flex flex-wrap items-center justify-between gap-3" style={d(0)}>
+        <p className="label tnum">
+          <span className="text-signal">000</span> · Record / {site.alternateName}
+        </p>
+        <p className="stamp text-posted">
+          <span aria-hidden="true" className="dot pulse" />
           {hero.availability}
         </p>
-        <div className="mt-10">
-          <h1 id="hero-title" className="font-display text-display">{hero.headline}</h1>
-          <p className="mt-6 max-w-[52ch] text-lg leading-relaxed text-on-brand-muted">{hero.intro}</p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a href="#contact" className="inline-flex min-h-12 items-center rounded-full bg-white px-6 font-semibold text-[#6b3f60] transition-transform hover:-translate-y-0.5">
-              Contact me
+      </div>
+      <div aria-hidden="true" className="draw mt-4 h-px bg-ink" style={d(60)} />
+
+      <div className="mt-10 grid gap-12 sm:mt-14 lg:grid-cols-12 lg:gap-8">
+        <div className="lg:col-span-7 xl:col-span-8">
+          <h1 id="hero-title" className="text-display">
+            {hero.headlineLines.map((line, i) => (
+              <span key={line} className="enter-line block" style={d(i * 70)}>
+                {i === hero.headlineLines.length - 1 ? <span className="text-signal">{line}</span> : line}
+              </span>
+            ))}
+          </h1>
+          <p className="enter mt-8 max-w-[46ch] text-lead text-muted" style={d(260)}>{hero.intro}</p>
+          <div className="enter mt-10 flex flex-wrap gap-3" style={d(340)}>
+            <a href="#contact" className="btn btn-primary">
+              Hire me or start a project <ArrowRight size={18} aria-hidden="true" className="arrow" />
             </a>
-            <a href={contact.github} className="inline-flex min-h-12 items-center gap-1.5 rounded-full border border-white/40 px-6 font-semibold transition-colors hover:bg-white/10">
-              GitHub <ArrowUpRight size={16} aria-hidden="true" />
+            <a href="#work" className="btn btn-ghost">
+              See the work <ArrowDown size={18} aria-hidden="true" className="arrow" />
             </a>
           </div>
         </div>
-      </div>
 
-      <div className="rise tile relative min-h-[17rem] overflow-hidden sm:min-h-[22rem] lg:col-span-4" style={d(0.08)}>
-        {site.photo ? (
-          <Image src={site.photo.src} alt={site.photo.alt} fill priority sizes="(min-width: 1024px) 400px, 100vw" className="object-cover" />
-        ) : (
-          <div aria-hidden="true" className="absolute inset-0 grid place-items-center bg-gradient-to-br from-teal via-[#2f6f6c] to-brand">
-            <span className="font-display text-[9rem] font-extrabold leading-none text-white/90">JK</span>
+        <figure className="enter lg:col-span-5 xl:col-span-4" style={d(200)}>
+          <div className="relative mx-auto aspect-[4/5] w-full max-w-[22rem] lg:max-w-none">
+            <HeroFigure>
+              <ModuleStack className="h-full w-full" />
+            </HeroFigure>
           </div>
-        )}
-        <div className="absolute inset-x-3 bottom-3 rounded-2xl bg-tile/90 p-4 backdrop-blur" style={{ background: "color-mix(in srgb, var(--tile) 88%, transparent)" }}>
-          <p className="font-display text-xl font-bold">{site.name}</p>
-          <p className="text-sm text-muted">{site.role}</p>
-        </div>
+          <figcaption className="label mt-3 flex justify-between gap-4 border-t border-rule pt-3">
+            <span>Fig. 1</span>
+            <span className="text-right">Modules I build on, as one system</span>
+          </figcaption>
+        </figure>
       </div>
 
-      <div className="rise tile bg-sunken p-3 sm:p-4 lg:col-span-5" style={d(0.16)}>
-        <RepairMock />
-      </div>
+      {/* Key fields, in the label/value layout of an Odoo form. */}
+      <dl className="enter mt-16 grid grid-cols-2 gap-px border-y border-rule bg-rule sm:mt-20 lg:grid-cols-4" style={d(420)}>
+        {fields.map((field) => (
+          <div key={field.label} className="bg-paper py-4 pr-4 [&:nth-child(even)]:pl-4 lg:[&:not(:first-child)]:pl-4">
+            <dt className="label">{field.label}</dt>
+            <dd className="mt-1.5 font-medium leading-snug">{field.value}</dd>
+          </div>
+        ))}
+      </dl>
 
-      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:col-span-3 lg:grid-cols-1">
-        <div className="rise tile lift p-5" style={d(0.22)}>
-          <Briefcase size={20} className="text-teal" aria-hidden="true" />
-          <p className="mt-4 text-sm text-muted">Now</p>
-          <p className="font-semibold leading-snug">{site.employer.name}</p>
-        </div>
-        <div className="rise tile lift p-5" style={d(0.28)}>
-          <MapPin size={20} className="text-plum" aria-hidden="true" />
-          <p className="mt-4 text-sm text-muted">Based in</p>
-          <p className="font-semibold leading-snug">Manjeri, Kerala</p>
-          <p className="text-sm text-muted">Open to Gulf and remote</p>
-        </div>
-      </div>
-
-      <div className="rise tile flex flex-col justify-center gap-6 overflow-hidden p-5 sm:p-6 lg:col-span-4" style={d(0.34)}>
-        <div>
-          <p className="text-sm text-muted">Daily stack</p>
-          <p className="font-display text-h3">Python, Odoo and the web.</p>
-        </div>
-        <div className="space-y-2" aria-label={`Stack: ${stack.join(", ")}`} role="img">
-          <Marquee items={stack.slice(0, third)} />
-          <Marquee items={stack.slice(third, third * 2)} reverse />
-          <Marquee items={stack.slice(third * 2)} />
-        </div>
+      {/* Career as an Odoo statusbar: the last stage is the current one. */}
+      <div className="enter mt-8" style={d(480)}>
+        <p className="label">Career stage</p>
+        <ol className="mt-3 grid grid-cols-2 gap-1 sm:flex">
+          {stages.map((stage, i) => (
+            <li
+              key={stage.id}
+              aria-current={i === last ? "step" : undefined}
+              className={`chevron flex min-h-14 flex-1 flex-col justify-center px-4 py-2 ${i === last ? "bg-ink text-paper" : "bg-sunken"}`}
+            >
+              <span className="text-sm font-medium leading-tight">{stage.label}</span>
+              <span className={`tnum font-mono text-xs ${i === last ? "text-paper" : "text-muted"}`}>{stage.period}</span>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   );

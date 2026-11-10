@@ -1,41 +1,42 @@
 import { ArrowUpRight } from "lucide-react";
 import { contact, forBusinesses } from "@/content/site";
 import ContactForm from "./ContactForm";
+import Section from "./Section";
 
 const links = [
-  { label: "LinkedIn", href: contact.linkedin },
-  { label: "GitHub", href: contact.github },
-  { label: "WhatsApp", href: contact.whatsapp },
-  { label: "Résumé (PDF)", href: contact.resume },
+  { label: "LinkedIn", href: contact.linkedin, note: "Profile" },
+  { label: "GitHub", href: contact.github, note: "@jasikhalid" },
+  { label: "WhatsApp", href: contact.whatsapp, note: contact.phone },
+  { label: "Résumé", href: contact.resume, note: "PDF" },
 ];
 
 export default function Contact() {
   return (
-    <section id="contact" aria-labelledby="contact-title" className="mx-auto max-w-page px-4 py-16 sm:px-6 lg:py-24">
-      <div className="grid gap-4 lg:grid-cols-2">
-        <div className="reveal tile flex flex-col justify-between border-transparent bg-brand p-6 text-on-brand sm:p-10">
-          <div>
-            <p className="text-sm font-semibold text-on-brand-muted">Contact</p>
-            <h2 id="contact-title" className="mt-2 font-display text-h2">Have an Odoo project or a role?</h2>
-            <p className="mt-5 max-w-prose text-lg leading-relaxed text-on-brand-muted">{forBusinesses}</p>
-          </div>
-          <div className="mt-10">
-            <a href={`mailto:${contact.email}`} className="inline-flex min-h-11 items-center break-all font-display text-xl font-bold underline decoration-2 underline-offset-4 sm:text-2xl">
-              {contact.email}
-            </a>
-            <ul className="mt-6 flex flex-wrap gap-2">
-              {links.map((link) => (
-                <li key={link.label}>
-                  <a href={link.href} className="inline-flex min-h-11 items-center gap-1 rounded-full border px-4 text-sm font-semibold hover:bg-white hover:text-[#6b3f60]" style={{ borderColor: "color-mix(in srgb, currentColor 30%, transparent)" }}>
-                    {link.label} <ArrowUpRight size={14} aria-hidden="true" />
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+    <Section id="contact" code="600" label="Contact" title="Have an Odoo project or a role?" intro={forBusinesses}>
+      <div className="grid gap-14 lg:grid-cols-12 lg:gap-8">
+        <div className="reveal lg:col-span-5">
+          <p className="label">Email, the fastest way</p>
+          <a href={`mailto:${contact.email}`} className="link mt-3 inline-block break-all text-[clamp(1.5rem,1rem+2.2vw,2.4rem)] font-medium leading-tight tracking-tight">
+            {contact.email}
+          </a>
+          <ul className="mt-10 border-t border-ink">
+            {links.map((link) => (
+              <li key={link.label} className="border-b border-rule">
+                <a href={link.href} className="row-hover group flex min-h-14 items-center justify-between gap-4 py-3 hover:text-signal">
+                  <span className="font-medium">{link.label}</span>
+                  <span className="flex items-center gap-3 font-mono text-[13px] text-muted">
+                    {link.note}
+                    <ArrowUpRight size={16} aria-hidden="true" className="row-arrow text-ink group-hover:text-signal" />
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
-        <ContactForm />
+        <div className="reveal lg:col-span-6 lg:col-start-7">
+          <ContactForm />
+        </div>
       </div>
-    </section>
+    </Section>
   );
 }

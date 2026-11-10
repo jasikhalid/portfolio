@@ -66,7 +66,7 @@ export default function ContactForm() {
   }
 
   const input =
-    "mt-2 block w-full rounded-xl border border-line bg-canvas px-4 py-3 text-base text-ink transition-colors focus:border-teal aria-[invalid=true]:border-danger";
+    "mt-2 block w-full rounded-sm border border-rule bg-paper px-4 py-3 text-base text-ink transition-colors duration-fast hover:border-muted focus:border-ink focus-visible:outline-offset-0 aria-[invalid=true]:border-signal";
 
   function fieldProps(field: Field) {
     return {
@@ -80,25 +80,25 @@ export default function ContactForm() {
   }
 
   function error(field: Field) {
-    return errors[field] && <p id={`contact-${field}-error`} className="mt-1.5 text-sm text-danger">{errors[field]}</p>;
+    return errors[field] && <p id={`contact-${field}-error`} className="mt-1.5 text-sm text-signal">{errors[field]}</p>;
   }
 
   return (
-    <form ref={form} onSubmit={onSubmit} noValidate aria-labelledby="contact-form-title" className="reveal tile p-6 sm:p-10">
-      <h3 id="contact-form-title" className="font-display text-h3">Send a message</h3>
-      <div className="mt-5 space-y-5">
+    <form ref={form} onSubmit={onSubmit} noValidate aria-labelledby="contact-form-title" className="rounded border border-ink bg-raised p-5 sm:p-8">
+      <h3 id="contact-form-title" className="label"><span className="text-signal">610</span> · Send a message</h3>
+      <div className="mt-6 space-y-5">
         <div>
-          <label htmlFor="contact-name" className="font-semibold">Name</label>
+          <label htmlFor="contact-name" className="text-sm font-medium">Name</label>
           <input {...fieldProps("name")} type="text" autoComplete="name" />
           {error("name")}
         </div>
         <div>
-          <label htmlFor="contact-email" className="font-semibold">Email</label>
+          <label htmlFor="contact-email" className="text-sm font-medium">Email</label>
           <input {...fieldProps("email")} type="email" autoComplete="email" inputMode="email" />
           {error("email")}
         </div>
         <div>
-          <label htmlFor="contact-message" className="font-semibold">Message</label>
+          <label htmlFor="contact-message" className="text-sm font-medium">Message</label>
           <textarea {...fieldProps("message")} rows={5} />
           {error("message")}
         </div>
@@ -107,13 +107,26 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status.state === "sending"}
-        className="mt-6 inline-flex min-h-12 w-full items-center justify-center rounded-full bg-brand px-7 font-semibold text-on-brand transition-transform hover:-translate-y-0.5 disabled:opacity-60 sm:w-auto"
+        aria-busy={status.state === "sending"}
+        className="btn btn-primary mt-7 w-full justify-center disabled:cursor-wait disabled:opacity-70 sm:w-auto"
       >
-        {status.state === "sending" ? "Sending…" : "Send message"}
+        {status.state === "sending" ? (
+          <>
+            <span aria-hidden="true" className="h-4 w-4 animate-spin rounded-full border-2 border-current border-r-transparent motion-reduce:animate-none" />
+            Sending…
+          </>
+        ) : (
+          <>Send message <span aria-hidden="true" className="arrow">→</span></>
+        )}
       </button>
       <div role="status" aria-live="polite" className="mt-4 text-sm empty:hidden">
-        {status.state === "sent" && <p>Message sent. I&apos;ll reply to {status.email}.</p>}
-        {status.state === "failed" && <p className="text-danger">{status.message}</p>}
+        {status.state === "sent" && (
+          <p className="flex items-start gap-3 rounded-sm border border-posted p-3 text-posted">
+            <span className="stamp shrink-0 px-1.5 py-0 text-[10px]">Posted</span>
+            <span>Message sent. I&apos;ll reply to {status.email}.</span>
+          </p>
+        )}
+        {status.state === "failed" && <p className="rounded-sm border border-signal p-3 text-signal">{status.message}</p>}
       </div>
     </form>
   );

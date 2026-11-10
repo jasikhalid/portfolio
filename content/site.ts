@@ -57,16 +57,20 @@ export const contact = {
   formspree: "https://formspree.io/f/xppzljze",
 };
 
+// Ledger account codes double as section numbers. Hrefs start with "/" so they work from case-file pages too.
 export const nav = [
-  { label: "Work", href: "#work" },
-  { label: "Experience", href: "#experience" },
-  { label: "Skills", href: "#skills" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
+  { code: "100", label: "Work", href: "/#work" },
+  { code: "200", label: "Stack", href: "/#stack" },
+  { code: "300", label: "Experience", href: "/#experience" },
+  { code: "400", label: "Prompting", href: "/#prompting" },
+  { code: "500", label: "About", href: "/#about" },
+  { code: "600", label: "Contact", href: "/#contact" },
 ];
 
 export const hero = {
   headline: "Odoo & ERPNext apps that run the business.",
+  // The same headline, broken where it should break on large screens.
+  headlineLines: ["Odoo & ERPNext", "apps that run", "the business."],
   intro:
     "I'm Jasi Khalid, an Odoo Developer at Codex Business Solutions. I build custom Odoo modules and ERPNext/Frappe apps: data models, dashboards, reports, workflows and access rules.",
   availability: "Open to ERP roles and freelance work",
@@ -202,6 +206,7 @@ export const work: CaseFile[] = [
     title: "Vehicle Repair Management System",
     context: "Custom module, built during training at Cybrosys",
     summary: "One repair order that moves from intake to technician, parts and invoice without leaving Odoo.",
+    // TODO(jasi): the redesign brief says Odoo 17, this file says Odoo 19. Confirm which and fix both mentions.
     stack: ["Odoo 19", "Python", "OWL", "QWeb", "PostgreSQL", "WhatsApp/SMS API"],
     fields: [
       { label: "Platform", value: "Odoo 19" },
@@ -250,6 +255,15 @@ export const work: CaseFile[] = [
     ],
     result: "A working dashboard module, built during the training.",
   },
+];
+
+// The modules drawn in the hero figure: the apps Jasi has built on, with a real model or doctype from each.
+export const modules = [
+  { name: "Fleet", model: "fleet.vehicle" },
+  { name: "Sales", model: "sale.order" },
+  { name: "Stock", model: "stock.move" },
+  { name: "Manufacturing", model: "Work Order" },
+  { name: "Accounting", model: "account.move" },
 ];
 
 export const sideProjects: SideProject[] = [

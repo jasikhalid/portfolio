@@ -2,6 +2,7 @@ import About from "@/components/About";
 import Contact from "@/components/Contact";
 import Experience from "@/components/Experience";
 import Hero from "@/components/Hero";
+import Prompting from "@/components/Prompting";
 import Skills from "@/components/Skills";
 import Work from "@/components/Work";
 import { contact, site, skills } from "@/content/site";
@@ -27,8 +28,9 @@ export default function Page() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(person).replace(/</g, "\\u003c") }} />
       <Hero />
       <Work />
-      <Experience />
       <Skills />
+      <Experience />
+      <Prompting />
       <About />
       <Contact />
     </>
