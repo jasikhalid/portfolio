@@ -1,6 +1,6 @@
 import { ChevronDown } from "lucide-react";
 import { sideProjects, work, type CaseFile } from "@/content/site";
-import { DashboardMock, RepairFlow } from "./Mockups";
+import { DashboardMock, RepairFlow, StitchFlowMock } from "./Mockups";
 import Section from "./Section";
 import { WithCode } from "./text";
 
@@ -20,7 +20,15 @@ function Case({ file, mock, flip }: { file: CaseFile; mock: React.ReactNode; fli
         {mock}
       </div>
       <div className="flex flex-col justify-center p-6 sm:p-10">
-        <p className="text-sm text-muted">{file.context}</p>
+        <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
+          {file.context}
+          {file.status && (
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-soft px-2.5 py-0.5 text-xs font-semibold text-teal">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-teal motion-reduce:animate-none" />
+              {file.status}
+            </span>
+          )}
+        </p>
         <h3 id={titleId} className="mt-1 font-display text-h3">{file.title}</h3>
         <p className="mt-3 max-w-prose leading-relaxed">{file.summary}</p>
         <ul className="mt-5 flex flex-wrap gap-2" aria-label="Stack">
@@ -51,13 +59,17 @@ function Case({ file, mock, flip }: { file: CaseFile; mock: React.ReactNode; fli
   );
 }
 
+const MOCKS: Record<string, React.ReactNode> = {
+  "garment-erp": <StitchFlowMock />,
+  "vehicle-repair": <RepairFlow />,
+  "accounting-dashboard": <div className="mx-auto max-w-md"><DashboardMock /></div>,
+};
+
 export default function Work() {
-  const [repair, dashboard] = work;
   return (
-    <Section id="work" label="Selected work" title="Two Odoo modules, built end to end.">
+    <Section id="work" label="Selected work" title="ERP work on Odoo and ERPNext, built end to end.">
       <div className="grid gap-4">
-        {repair && <Case file={repair} mock={<RepairFlow />} />}
-        {dashboard && <Case file={dashboard} mock={<div className="mx-auto max-w-md"><DashboardMock /></div>} flip />}
+        {work.map((file, i) => <Case key={file.slug} file={file} mock={MOCKS[file.slug]} flip={i % 2 === 1} />)}
       </div>
       <h3 className="mt-14 font-display text-h3">Also built</h3>
       <ul className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

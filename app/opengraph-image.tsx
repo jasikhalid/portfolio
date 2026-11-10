@@ -14,7 +14,7 @@ export default function OpengraphImage() {
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ fontSize: 30, color: "#00736e", fontWeight: 600 }}>{`${site.role} · ${site.employer.name}`}</div>
           <div style={{ fontSize: 96, marginTop: 12, letterSpacing: -4, lineHeight: 1 }}>{site.name}</div>
-          <div style={{ fontSize: 34, marginTop: 20, maxWidth: 900, lineHeight: 1.3 }}>Odoo modules that run the business: ORM, OWL, QWeb reports, wizards and access rules.</div>
+          <div style={{ fontSize: 34, marginTop: 20, maxWidth: 900, lineHeight: 1.3 }}>Custom Odoo modules and ERPNext / Frappe apps: data models, dashboards, reports, workflows and access rules.</div>
         </div>
         <div style={{ display: "flex" }}>
           {stages.map((stage, i) => {

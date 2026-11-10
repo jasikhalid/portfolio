@@ -19,6 +19,7 @@ export type CaseFile = {
   slug: string;
   title: string;
   context: string;
+  status?: string; // shown as a live badge, e.g. "In progress"
   summary: string;
   stack: string[];
   fields: { label: string; value: string; href?: string }[];
@@ -42,7 +43,7 @@ export const site = {
   employer: { name: "Codex Business Solutions", place: "Tirur, Kerala" },
   location: { city: "Manjeri", region: "Kerala", country: "IN", label: "Manjeri, Kerala, India" },
   description:
-    "Odoo Developer at Codex Business Solutions. I build custom Odoo modules: ORM models, OWL interfaces, QWeb reports, security rules and wizards. Open to roles in Kerala, the Gulf or remote, and to freelance Odoo work.",
+    "Odoo Developer at Codex Business Solutions. I build custom Odoo modules (ORM models, OWL interfaces, QWeb reports, security rules, wizards) and ERPNext/Frappe apps. Open to roles in Kerala, the Gulf or remote, and to freelance ERP work.",
 };
 
 export const contact = {
@@ -66,8 +67,8 @@ export const nav = [
 export const hero = {
   headline: "Odoo modules that run the business.",
   intro:
-    "I'm Muhammed Jasi, an Odoo Developer at Codex Business Solutions. I build custom modules: ORM models, OWL dashboards, QWeb reports, wizards and access rules.",
-  availability: "Open to Odoo roles and freelance work",
+    "I'm Muhammed Jasi, an Odoo Developer at Codex Business Solutions. I build custom Odoo modules and ERPNext/Frappe apps: data models, dashboards, reports, workflows and access rules.",
+  availability: "Open to Odoo / ERPNext roles and freelance work",
 };
 
 // Oldest first, like an Odoo statusbar. The last stage is the current one.
@@ -87,6 +88,14 @@ export const experience: Entry[] = [
     role: "Odoo Developer",
     start: "2026",
     // TODO: add your start month ("2026-08") and a one-line summary of public work.
+  },
+  {
+    stage: "codex",
+    org: "Freelance, garment manufacturer in Kerala",
+    role: "ERPNext v16 implementation + Stitch Flow app",
+    start: "2026-11",
+    summary:
+      "Leading discovery, requirements, gap analysis and phased delivery of ERPNext for a women's clothing manufacturer, plus a custom Frappe app for design-to-production. In progress.",
   },
   {
     stage: "training",
@@ -156,6 +165,38 @@ export const experience: Entry[] = [
 // Rewrite them in your own words; add a "Code" field with a GitHub URL if the source is public.
 export const work: CaseFile[] = [
   {
+    slug: "garment-erp",
+    title: "Garment Manufacturing ERP + Stitch Flow",
+    context: "Freelance, women's clothing manufacturer in Kerala",
+    status: "In progress",
+    summary:
+      "ERPNext v16 across buying, subcontracted fabric dyeing, stock, manufacturing, quality and selling, plus Stitch Flow: a custom app that takes a design from sketch to production work orders.",
+    stack: ["ERPNext v16", "Frappe", "Python", "Vue 3", "frappe-ui", "GitHub Actions"],
+    fields: [
+      { label: "Platform", value: "ERPNext v16 + custom Frappe app" },
+      { label: "Modules", value: "Buying, Subcontracting, Stock, Manufacturing, Quality, Selling" },
+      { label: "Built with", value: "Python, Vue 3, frappe-ui" },
+      { label: "Status", value: "Started Nov 2026, in progress" },
+    ],
+    problem:
+      "A garment design has to travel from the designer's sketch through an estimate, approval and a timed sample before it becomes production work orders, with fabric dyed by subcontractors along the way. ERPNext covers the operations; the design-to-production path needed its own app.",
+    built: [
+      "Stitch Flow, a custom Frappe app with a Python backend and a Vue 3 / frappe-ui frontend",
+      "Design-to-production state machine: design approval, sample tracking, sample approval, production",
+      "Automatic ERPNext item templates with size × colour variants, BOMs with operations, work orders, job cards and stock entries",
+      "Stage-wise time tracking on job cards, comparing estimate with actual and showing efficiency",
+      "A configuration app with fixtures for roles, permissions and workflows, plus import templates to migrate masters and opening balances from Tally",
+      "Project delivery: discovery workshop, business requirements document, gap analysis, decisions log and a phased plan",
+    ],
+    decisions: [
+      "Stitch Flow generates standard ERPNext documents (items, variants, BOMs, work orders) instead of parallel records, so manufacturing and stock stay native.",
+      "Role-based approvals with a no-self-approval rule, and field-level permissions that hide costs from designers.",
+      "Roles, permissions and workflows ship as fixtures, so every site is configured the same way.",
+      "Around 150 automated integration tests run in CI on GitHub Actions.",
+    ],
+    result: "Stitch Flow v1 is built and tested. The ERPNext configuration phases are under way.",
+  },
+  {
     slug: "vehicle-repair",
     title: "Vehicle Repair Management System",
     context: "Custom module, built during training at Cybrosys",
@@ -224,15 +265,15 @@ export const skills: SkillGroup[] = [
   { icon: "boxes", label: "Extend Odoo apps", items: ["Inventory", "Sales", "Purchase", "CRM", "Fleet", "Accounting", "POS"] },
   { icon: "plug", label: "Connect other systems", items: ["REST APIs", "Payment gateways", "WhatsApp and SMS APIs"] },
   { icon: "rocket", label: "Ship it", items: ["Git", "Linux deployment"] },
-  { icon: "sprout", label: "Learning now", items: ["ERPNext", "Frappe"] },
+  { icon: "sprout", label: "Build on ERPNext", items: ["ERPNext v16", "Frappe apps", "Vue 3 / frappe-ui", "Workflows and fixtures", "Tally migration", "Integration tests"] },
 ];
 
 // DRAFT: keep it short and in your own voice.
 export const about = [
   "I'm Jasi, based in Manjeri, Kerala. I studied computer science at the University of Calicut and started out building web apps with Django and React, in internships and for freelance clients in Canada and Saudi Arabia.",
-  "Six months of Odoo training at Cybrosys moved me into ERP work, and I now do it full-time at Codex Business Solutions in Tirur. I'm learning ERPNext and Frappe alongside it.",
+  "Six months of Odoo training at Cybrosys moved me into ERP work, and I now do it full-time at Codex Business Solutions in Tirur. Alongside it, I'm delivering an ERPNext v16 implementation for a garment manufacturer as a freelance project.",
   "I'm open to relocating to the Gulf and to remote roles.",
 ];
 
 export const forBusinesses =
-  "Running a business on Odoo, or about to? I take on freelance work: custom modules, reports, access rules, and integrations such as payments and WhatsApp/SMS.";
+  "Running a business on Odoo or ERPNext, or about to? I take on freelance work: implementation, custom modules and apps, reports, access rules, data migration, and integrations such as payments and WhatsApp/SMS.";

@@ -110,3 +110,58 @@ export function RepairFlow() {
     </div>
   );
 }
+
+const DESIGN_STATES = ["Design", "Approved", "Sample", "Production"];
+const SIZES = ["S", "M", "L", "XL"];
+const COLOURS = ["var(--plum)", "var(--teal)", "#c8932e"];
+
+// Stitch Flow: a design card in the Frappe desk, its variants and stage timing. Layout only.
+export function StitchFlowMock() {
+  return (
+    <div aria-hidden="true" className="grid gap-3 text-[13px] sm:grid-cols-[1.15fr_1fr]">
+      <div className="rounded-2xl border border-line bg-tile p-4">
+        <div className="flex items-center justify-between gap-2">
+          <span className="truncate font-semibold">Garment Design</span>
+          <span className="shrink-0 rounded-md bg-plum-soft px-2 py-0.5 font-medium text-plum">Sample</span>
+        </div>
+        <div className="mt-3 flex gap-1">
+          {DESIGN_STATES.map((state, i) => (
+            <span key={state} className={`h-1.5 flex-1 rounded-full ${i < 3 ? "bg-plum" : "bg-sunken"}`} />
+          ))}
+        </div>
+        <div className="mt-1.5 flex justify-between text-[11px] text-muted">
+          {DESIGN_STATES.map((state) => <span key={state}>{state}</span>)}
+        </div>
+        <p className="mt-4 text-[11px] font-medium text-muted">Variants · size × colour</p>
+        <div className="mt-1.5 grid grid-cols-4 gap-1.5">
+          {COLOURS.flatMap((colour) =>
+            SIZES.map((size) => (
+              <span key={colour + size} className="flex items-center gap-1 rounded-md bg-sunken px-1.5 py-1 text-[11px] font-medium">
+                <span className="h-2 w-2 rounded-full" style={{ background: colour }} />
+                {size}
+              </span>
+            )),
+          )}
+        </div>
+      </div>
+      <div className="flex flex-col gap-3">
+        <div className="rounded-2xl border border-line bg-tile p-4">
+          <p className="font-semibold">Job card timing</p>
+          {["Cutting", "Stitching", "Finishing"].map((stage, i) => (
+            <div key={stage} className="mt-2.5">
+              <div className="flex justify-between text-[11px] text-muted"><span>{stage}</span><span>est. / actual</span></div>
+              <div className="mt-1 space-y-0.5">
+                <span className="mock-fill block h-1.5 rounded-full bg-line" style={{ width: `${[70, 85, 55][i]}%` }} />
+                <span className="mock-fill block h-1.5 rounded-full bg-teal" style={{ width: `${[62, 92, 50][i]}%` }} />
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="flex flex-wrap gap-1.5">
+          <span className="chip gap-1.5 bg-tile"><ShieldCheck size={13} /> No self-approval</span>
+          <span className="chip gap-1.5 bg-tile"><Check size={13} /> CI tests</span>
+        </div>
+      </div>
+    </div>
+  );
+}
