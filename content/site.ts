@@ -38,11 +38,11 @@ export const site = {
   url: "https://jasikhalid.in",
   name: "Muhammed Jasi",
   alternateName: "Jasi Khalid",
-  role: "Junior Odoo Developer",
+  role: "Odoo Developer",
   employer: { name: "Codex Business Solutions", place: "Tirur, Kerala" },
   location: { city: "Manjeri", region: "Kerala", country: "IN", label: "Manjeri, Kerala, India" },
   description:
-    "Junior Odoo Developer at Codex Business Solutions. I build custom Odoo modules: ORM models, OWL interfaces, QWeb reports, security rules and wizards. Open to roles in Kerala, the Gulf or remote, and to freelance Odoo work.",
+    "Odoo Developer at Codex Business Solutions. I build custom Odoo modules: ORM models, OWL interfaces, QWeb reports, security rules and wizards. Open to roles in Kerala, the Gulf or remote, and to freelance Odoo work.",
 };
 
 export const contact = {
@@ -66,7 +66,7 @@ export const nav = [
 export const hero = {
   headline: "Odoo modules that run the business.",
   intro:
-    "I'm Muhammed Jasi, a Junior Odoo Developer at Codex Business Solutions. I build custom modules: ORM models, OWL dashboards, QWeb reports, wizards and access rules.",
+    "I'm Muhammed Jasi, an Odoo Developer at Codex Business Solutions. I build custom modules: ORM models, OWL dashboards, QWeb reports, wizards and access rules.",
   availability: "Open to Odoo roles and freelance work",
 };
 
@@ -84,7 +84,7 @@ export const experience: Entry[] = [
     stage: "codex",
     org: "Codex Business Solutions",
     place: "Tirur",
-    role: "Junior Odoo Developer",
+    role: "Odoo Developer",
     start: "2026",
     // TODO: add your start month ("2026-08") and a one-line summary of public work.
   },
