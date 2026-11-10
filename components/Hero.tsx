@@ -50,7 +50,7 @@ export default function Hero() {
           <Image src={site.photo.src} alt={site.photo.alt} fill priority sizes="(min-width: 1024px) 400px, 100vw" className="object-cover" />
         ) : (
           <div aria-hidden="true" className="absolute inset-0 grid place-items-center bg-gradient-to-br from-teal via-[#2f6f6c] to-brand">
-            <span className="font-display text-[9rem] font-extrabold leading-none text-white/90">MJ</span>
+            <span className="font-display text-[9rem] font-extrabold leading-none text-white/90">JK</span>
           </div>
         )}
         <div className="absolute inset-x-3 bottom-3 rounded-2xl bg-tile/90 p-4 backdrop-blur" style={{ background: "color-mix(in srgb, var(--tile) 88%, transparent)" }}>

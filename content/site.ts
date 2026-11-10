@@ -34,11 +34,11 @@ export type SkillGroup = { icon: "database" | "shield" | "layout" | "boxes" | "p
 export type SideProject = { title: string; context: string; text: string; stack: string[] };
 
 export const site = {
-  // Add your photo to /public and set it here, e.g. { src: "/jasi.jpg", alt: "Muhammed Jasi" }.
+  // Add your photo to /public and set it here, e.g. { src: "/jasi.jpg", alt: "Jasi Khalid" }.
   photo: undefined as { src: string; alt: string } | undefined,
   url: "https://jasikhalid.in",
-  name: "Muhammed Jasi",
-  alternateName: "Jasi Khalid",
+  name: "Jasi Khalid",
+  alternateName: "Muhammed Jasi",
   role: "Odoo Developer",
   employer: { name: "Codex Business Solutions", place: "Tirur, Kerala" },
   location: { city: "Manjeri", region: "Kerala", country: "IN", label: "Manjeri, Kerala, India" },
@@ -67,7 +67,7 @@ export const nav = [
 export const hero = {
   headline: "Odoo & ERPNext apps that run the business.",
   intro:
-    "I'm Muhammed Jasi, an Odoo Developer at Codex Business Solutions. I build custom Odoo modules and ERPNext/Frappe apps: data models, dashboards, reports, workflows and access rules.",
+    "I'm Jasi Khalid, an Odoo Developer at Codex Business Solutions. I build custom Odoo modules and ERPNext/Frappe apps: data models, dashboards, reports, workflows and access rules.",
   availability: "Open to ERP roles and freelance work",
 };
 

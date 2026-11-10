@@ -6,7 +6,7 @@ export default function Header() {
     <header className="sticky top-0 z-40 border-b border-line backdrop-blur-md" style={{ background: "color-mix(in srgb, var(--canvas) 85%, transparent)" }}>
       <div className="mx-auto flex h-16 max-w-page items-center justify-between px-4 sm:px-6">
         <a href="#top" className="flex min-h-11 items-center gap-2.5 font-display text-lg font-bold">
-          <span aria-hidden="true" className="grid h-8 w-8 place-items-center rounded-lg bg-ink text-sm text-canvas">MJ</span>
+          <span aria-hidden="true" className="grid h-8 w-8 place-items-center rounded-lg bg-ink text-sm text-canvas">JK</span>
           {site.name}
         </a>
         <nav aria-label="Main" className="hidden md:block">
