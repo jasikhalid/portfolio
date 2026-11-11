@@ -7,16 +7,21 @@ export default function Experience() {
   const groups = [...stages].reverse().map((stage) => ({ stage, entries: experience.filter((e) => e.stage === stage.id) }));
   return (
     <Section id="experience" code="300" label="Experience" title="From full-stack apps to Odoo.">
-      <div className="space-y-14">
+      <div className="relative space-y-14 pl-6 sm:pl-10">
+        {/* Timeline: a hairline track with a line that draws itself on scroll (static where unsupported). */}
+        <div aria-hidden="true" className="absolute inset-y-0 left-0 w-px bg-rule">
+          <div className="timeline-line h-full w-px bg-signal" />
+        </div>
         {groups.map(({ stage, entries }) => (
-          <div key={stage.id} className="reveal">
-            <h3 className="flex items-baseline justify-between gap-4 border-b border-ink pb-3">
+          <div key={stage.id}>
+            <h3 className="reveal relative flex items-baseline justify-between gap-4 border-b border-ink pb-3">
+              <span aria-hidden="true" className="absolute -left-6 top-1/2 h-[7px] w-[7px] -translate-x-[3px] -translate-y-1/2 rounded-full bg-signal sm:-left-10" />
               <span className="text-lg font-medium">{stage.label}</span>
               <span className="tnum font-mono text-sm text-muted">{stage.period}</span>
             </h3>
             <ol>
               {entries.map((entry) => (
-                <li key={`${entry.org}-${entry.start}`} className="grid gap-x-8 gap-y-1 border-b border-rule py-5 sm:grid-cols-[10rem_minmax(0,1fr)] lg:grid-cols-[12rem_minmax(0,1fr)_minmax(0,1.3fr)]">
+                <li key={`${entry.org}-${entry.start}`} className="reveal grid gap-x-8 gap-y-1 border-b border-rule py-5 sm:grid-cols-[10rem_minmax(0,1fr)] lg:grid-cols-[12rem_minmax(0,1fr)_minmax(0,1.3fr)]">
                   <p className="tnum font-mono text-[13px] text-muted sm:pt-0.5">
                     <DateRange start={entry.start} end={entry.end} />
                   </p>

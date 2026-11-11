@@ -13,11 +13,11 @@ export default function Work() {
       title="ERP work on Odoo and ERPNext, built end to end."
       intro="Three case files. Each one starts with the business problem and ends with what was built."
     >
-      <ol className="border-t border-rule">
+      <ol className="stack border-t border-rule">
         {work.map((file, i) => {
           const Mock = MOCKS[file.slug];
           return (
-            <li key={file.slug} className="reveal border-b border-rule">
+            <li key={file.slug} className="reveal border-b border-rule" style={{ "--i": i } as React.CSSProperties}>
               <article aria-labelledby={`${file.slug}-title`} className="group relative grid grid-cols-[minmax(0,1fr)] gap-8 py-10 sm:py-14 lg:grid-cols-12 lg:gap-8">
                 <div className="flex flex-col lg:col-span-5">
                   <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
@@ -61,7 +61,7 @@ export default function Work() {
           </p>
           <ul className="border-t border-ink sm:border-t-0">
             {sideProjects.map((project) => (
-              <li key={project.title} className="grid gap-1 border-b border-rule py-4 sm:grid-cols-[14rem_minmax(0,1fr)_10rem] sm:gap-6">
+              <li key={project.title} className="reveal grid gap-1 border-b border-rule py-4 sm:grid-cols-[14rem_minmax(0,1fr)_10rem] sm:gap-6">
                 <p className="font-medium">
                   {project.title}
                   <span className="mt-0.5 block text-sm font-normal text-muted">{project.context}</span>

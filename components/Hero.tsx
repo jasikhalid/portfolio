@@ -16,7 +16,7 @@ const fields = [
 export default function Hero() {
   const last = stages.length - 1;
   return (
-    <section aria-labelledby="hero-title" className="page pb-6 pt-8 sm:pt-12 lg:pt-14">
+    <section aria-labelledby="hero-title" className="hero-exit page pb-6 pt-8 sm:pt-12 lg:pt-14">
       {/* Record header, like the top of an ERP form. */}
       <div className="enter flex flex-wrap items-center justify-between gap-3" style={d(0)}>
         <p className="label tnum">

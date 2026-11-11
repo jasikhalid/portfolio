@@ -101,12 +101,6 @@ p { text-wrap: pretty; }
   .enter-line { display: block; animation: enter-line 900ms var(--ease-out) both; animation-delay: var(--d, 0ms); }
   .draw { transform-origin: left; animation: draw var(--t-draw) var(--ease-out) both; animation-delay: var(--d, 0ms); }
 
-  /* Scroll reveals are tied to scroll position, so content is never stuck hidden. Browsers without support just show it. */
-  @supports (animation-timeline: view()) {
-    .reveal { animation: reveal linear both; animation-timeline: view(); animation-range: entry 0% entry 40%; }
-    .reveal-rule { transform-origin: left; animation: draw linear both; animation-timeline: view(); animation-range: entry 0% entry 60%; }
-  }
-
   .row-hover { transition: background-color var(--t-base) var(--ease-out); }
   .row-hover .row-arrow { transition: transform var(--t-base) var(--ease-out); }
   .row-hover:hover .row-arrow { transform: translate(4px, -4px); }
@@ -118,17 +112,87 @@ p { text-wrap: pretty; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  @supports (animation-timeline: view()) {
-    .reveal { animation: fade linear both; animation-timeline: view(); animation-range: entry 0% entry 20%; }
-  }
 }
 
 @keyframes enter { from { opacity: 0; transform: translateY(14px); } }
 @keyframes enter-line { from { transform: translateY(0.32em); } }
 @keyframes draw { from { transform: scaleX(0); } }
-@keyframes reveal { from { opacity: 0; transform: translateY(32px); } }
 @keyframes fade { from { opacity: 0; } }
 @keyframes pulse { 50% { opacity: 0.35; } }
+
+/* ── Scroll motion ──────────────────────────────────────────────────────────────────────────────────────────────
+   One easing (--ease-out), 0.4–0.8s, 16–40px. Everything is transform/opacity only and progressive:
+   - Reveals: hidden only under html[data-rv], which the inline script in layout.tsx sets; it reveals once.
+   - Hero exit, progress bar, timeline line, stacked case files: CSS scroll-driven animations (no JS, no scroll
+     listeners). Browsers without animation-timeline just show the static page.
+   Reduced motion: reveals become a plain fade; no parallax, stacking, progress bar or smooth scroll. */
+
+@media (prefers-reduced-motion: no-preference) {
+  html[data-rv] .reveal { transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out); }
+  html[data-rv] .reveal:not([data-shown]) { opacity: 0; transform: translateY(24px); }
+  html[data-rv] .reveal-rule { transform-origin: left; transition: transform 800ms var(--ease-out); }
+  html[data-rv] .reveal-rule:not([data-shown]) { transform: scaleX(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-rv] .reveal { transition: opacity 400ms linear; }
+  html[data-rv] .reveal:not([data-shown]) { opacity: 0; }
+}
+/* Stagger for elements that enter together (set by the script, capped at 5 steps). */
+[data-rd="1"] { transition-delay: 70ms !important; }
+[data-rd="2"] { transition-delay: 140ms !important; }
+[data-rd="3"] { transition-delay: 210ms !important; }
+[data-rd="4"] { transition-delay: 280ms !important; }
+[data-rd="5"] { transition-delay: 350ms !important; }
+@media print { html[data-rv] .reveal, html[data-rv] .reveal-rule { opacity: 1 !important; transform: none !important; } }
+
+.scroll-progress { display: none; }
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    /* Thin reading-progress bar along the top edge. */
+    .scroll-progress {
+      display: block; position: fixed; inset: 0 0 auto; z-index: 60; height: 2px; background: var(--signal);
+      transform-origin: left; animation: draw linear both; animation-timeline: scroll(root);
+    }
+
+    /* Hero exit: drifts down (so it moves slower than the page), shrinks slightly and fades as you scroll past. */
+    .hero-exit {
+      --hx-y: 6vh; --hx-s: 0.985; --hx-o: 0.5;
+      transform-origin: 50% 0; animation: hero-exit linear both; animation-timeline: scroll(root); animation-range: 0 110vh;
+    }
+    @media (min-width: 1024px) { .hero-exit { --hx-y: 12vh; --hx-s: 0.97; --hx-o: 0.4; } }
+
+    /* Experience timeline: the line draws itself as its top passes 60% of the viewport, finishing as the bottom does. */
+    .timeline-line { transform-origin: top; animation: draw-y linear both; animation-timeline: view(); animation-range: cover 40vh exit 40vh; }
+  }
+}
+@keyframes hero-exit { to { opacity: var(--hx-o); transform: translateY(var(--hx-y)) scale(var(--hx-s)); } }
+@keyframes draw-y { from { transform: scaleY(0); } }
+
+/* Selected work: case files stack like records filed on top of each other. Desktop only, and only when the window is
+   tall enough to show a whole case file while it is pinned; otherwise they are ordinary reveals. */
+@media (prefers-reduced-motion: no-preference) and (min-width: 1024px) and (min-height: 760px) {
+  .stack > li { position: sticky; top: calc(4.5rem + var(--i, 0) * 1.25rem); background: var(--paper); box-shadow: 0 -1px 0 var(--rule); }
+  .stack > li:focus-within { z-index: 1; } /* a focused case file is never covered by the next one */
+
+  /* The file underneath steps back as the next one slides over it, driven by the next file's own view timeline. */
+  @supports (animation-timeline: view()) {
+    .stack { timeline-scope: --file-2, --file-3, --file-4, --file-5, --file-6; }
+    .stack > li:nth-child(2) { view-timeline-name: --file-2; }
+    .stack > li:nth-child(3) { view-timeline-name: --file-3; }
+    .stack > li:nth-child(4) { view-timeline-name: --file-4; }
+    .stack > li:nth-child(5) { view-timeline-name: --file-5; }
+    .stack > li:nth-child(6) { view-timeline-name: --file-6; }
+    .stack > li > article { transform-origin: 50% 0; animation: file-away linear both; animation-range: cover 0% cover calc(100vh - 6rem); }
+    .stack > li:nth-child(1) > article { animation-timeline: --file-2; }
+    .stack > li:nth-child(2) > article { animation-timeline: --file-3; }
+    .stack > li:nth-child(3) > article { animation-timeline: --file-4; }
+    .stack > li:nth-child(4) > article { animation-timeline: --file-5; }
+    .stack > li:nth-child(5) > article { animation-timeline: --file-6; }
+    .stack > li:last-child > article { animation: none; }
+  }
+}
+@keyframes file-away { to { transform: scale(0.94); opacity: 0.45; } }
 
 dialog::backdrop { background: rgb(10 10 9 / 0.55); backdrop-filter: blur(2px); }
 
