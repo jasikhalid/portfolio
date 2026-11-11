@@ -18,7 +18,7 @@ export default function Work() {
           const Mock = MOCKS[file.slug];
           return (
             <li key={file.slug} className="reveal border-b border-rule">
-              <article aria-labelledby={`${file.slug}-title`} className="group relative grid gap-8 py-10 sm:py-14 lg:grid-cols-12 lg:gap-8">
+              <article aria-labelledby={`${file.slug}-title`} className="group relative grid grid-cols-[minmax(0,1fr)] gap-8 py-10 sm:py-14 lg:grid-cols-12 lg:gap-8">
                 <div className="flex flex-col lg:col-span-5">
                   <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
                     <span className="label tnum"><span className="text-signal">{101 + i}</span> · Case file</span>

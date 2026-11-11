@@ -14,7 +14,7 @@ export default function Prompting() {
             </li>
           ))}
         </ol>
-        <div className="reveal lg:col-span-8">
+        <div className="reveal min-w-0 lg:col-span-8">
           <PromptCompare />
           <p className="label mt-3">Example brief. Switch tabs to compare it with the one-liner most people type.</p>
         </div>
