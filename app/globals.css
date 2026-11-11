@@ -2,19 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Navy and cream tokens. Every text pair passes WCAG AA; most pass AAA. */
+/* Black and cream tokens. Every text pair passes WCAG AA; most pass AAA. */
 :root {
   color-scheme: light;
-  --paper: #f5efe1;
-  --raised: #fbf8f0;
-  --sunken: #ebe3cf;
-  --ink: #13213f;
-  --muted: #4a5670;
-  --rule: #d8cdb4;
-  --signal: #24479b;
-  --on-signal: #fbf8f0;
+  --paper: #f4eedf;
+  --raised: #faf7ef;
+  --sunken: #e9e1cc;
+  --ink: #111111;
+  --muted: #56524a;
+  --rule: #d6ccb4;
+  --signal: #7a5a28;
+  --on-signal: #faf7ef;
   --posted: #1c6447;
-  --lift: 0 1px 0 rgb(19 33 63 / 0.05), 0 24px 48px -24px rgb(19 33 63 / 0.3);
+  --lift: 0 1px 0 rgb(17 17 17 / 0.05), 0 24px 48px -24px rgb(17 17 17 / 0.3);
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
@@ -27,28 +27,28 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --paper: #0c1527;
-    --raised: #132038;
-    --sunken: #08101e;
-    --ink: #f3ead6;
-    --muted: #a9b1c2;
-    --rule: #24314b;
-    --signal: #9db6f2;
-    --on-signal: #0c1527;
+    --paper: #0f0f0e;
+    --raised: #1a1a18;
+    --sunken: #0a0a09;
+    --ink: #f2ead7;
+    --muted: #aaa496;
+    --rule: #2c2b27;
+    --signal: #dcc69a;
+    --on-signal: #0f0f0e;
     --posted: #5cc497;
     --lift: 0 24px 48px -24px rgb(0 0 0 / 0.7);
   }
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --paper: #0c1527;
-  --raised: #132038;
-  --sunken: #08101e;
-  --ink: #f3ead6;
-  --muted: #a9b1c2;
-  --rule: #24314b;
-  --signal: #9db6f2;
-  --on-signal: #0c1527;
+  --paper: #0f0f0e;
+  --raised: #1a1a18;
+  --sunken: #0a0a09;
+  --ink: #f2ead7;
+  --muted: #aaa496;
+  --rule: #2c2b27;
+  --signal: #dcc69a;
+  --on-signal: #0f0f0e;
   --posted: #5cc497;
   --lift: 0 24px 48px -24px rgb(0 0 0 / 0.7);
 }
@@ -130,7 +130,7 @@ p { text-wrap: pretty; }
 @keyframes fade { from { opacity: 0; } }
 @keyframes pulse { 50% { opacity: 0.35; } }
 
-dialog::backdrop { background: rgb(8 16 30 / 0.55); backdrop-filter: blur(2px); }
+dialog::backdrop { background: rgb(10 10 9 / 0.55); backdrop-filter: blur(2px); }
 
 /* Hero figure: slabs drop into place once on load. */
 @media (prefers-reduced-motion: no-preference) {
