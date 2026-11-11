@@ -20,7 +20,7 @@ export default function Hero() {
       {/* Record header, like the top of an ERP form. */}
       <div className="enter flex flex-wrap items-center justify-between gap-3" style={d(0)}>
         <p className="label tnum">
-          <span className="text-signal">000</span> · Record / {site.alternateName}
+          <span className="text-signal">000</span> · Record / {site.name}
         </p>
         <p className="stamp text-posted">
           <span aria-hidden="true" className="dot pulse" />
