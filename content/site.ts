@@ -35,8 +35,7 @@ export type SkillGroup = { code: string; label: string; items: string[]; usedIn:
 export type SideProject = { title: string; context: string; text: string; stack: string[] };
 
 export const site = {
-  // Add your photo to /public and set it here, e.g. { src: "/jasi.jpg", alt: "Jasi Khalid" }.
-  photo: undefined as { src: string; alt: string } | undefined,
+  photo: { src: "/jasi-khalid.webp", alt: "Illustrated portrait of Jasi Khalid in a maroon blazer, holding a laptop" } as { src: string; alt: string } | undefined,
   url: "https://jasikhalid.in",
   name: "Jasi Khalid",
   alternateName: "Muhammed Jasi",

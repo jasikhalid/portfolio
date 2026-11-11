@@ -17,10 +17,9 @@ export default function About() {
           {about.map((paragraph) => <p key={paragraph} className="max-w-prose">{paragraph}</p>)}
         </div>
         <div className="reveal lg:col-span-2 lg:col-start-11">
-          {/* TODO(jasi): add a photo to /public and set site.photo in content/site.ts; it appears here. */}
           {site.photo && (
-            <div className="relative mb-8 aspect-[4/5] overflow-hidden rounded border border-ink">
-              <Image src={site.photo.src} alt={site.photo.alt} fill sizes="(min-width: 1024px) 200px, 100vw" className="object-cover" />
+            <div className="relative mx-auto aspect-[2/3] w-full max-w-[220px]">
+              <Image src={site.photo.src} alt={site.photo.alt} fill sizes="220px" className="object-contain" />
             </div>
           )}
         </div>
