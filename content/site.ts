@@ -38,6 +38,7 @@ export const site = {
   photo: { src: "/jasi-khalid.webp", alt: "Illustrated portrait of Jasi Khalid in a maroon blazer, holding a laptop" } as { src: string; alt: string } | undefined,
   url: "https://jasikhalid.in",
   name: "Jasi Khalid",
+  // Full name. Used in About and in the Person schema so the résumé and LinkedIn (which use it) match the site.
   alternateName: "Muhammed Jasi",
   role: "Odoo Developer",
   employer: { name: "Codex Business Solutions", place: "Tirur, Kerala" },
@@ -283,7 +284,7 @@ export const skills: SkillGroup[] = [
 ];
 
 export const about = [
-  "I'm Jasi, from Manjeri in Kerala. I studied computer science at the University of Calicut, and my first real projects were web apps in Django and React, built during internships and for freelance clients in Canada and Saudi Arabia.",
+  "I'm Muhammed Jasi, though most people know me as Jasi Khalid. I'm from Manjeri in Kerala. I studied computer science at the University of Calicut, and my first real projects were web apps in Django and React, built during internships and for freelance clients in Canada and Saudi Arabia.",
   "Six months of Odoo training at Cybrosys pulled me into ERP work: software a business actually runs on every day. Since September 2026 I've been an Odoo Developer at Codex Business Solutions in Tirur, and on the side I'm delivering an ERPNext implementation for a garment manufacturer.",
   "I also enjoy prompt engineering and building things with AI. I'm open to moving to the Gulf and to remote roles.",
 ];
