@@ -7,11 +7,11 @@ export const alt = `${site.name}, ${site.role} at ${site.employer.name}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const PAPER = "#f3f0e8";
-const INK = "#15140f";
-const MUTED = "#5c574b";
-const RULE = "#d8d2c2";
-const SIGNAL = "#b3361d";
+const PAPER = "#f5efe1";
+const INK = "#13213f";
+const MUTED = "#4a5670";
+const RULE = "#d8cdb4";
+const SIGNAL = "#24479b";
 
 const fonts = join(process.cwd(), "node_modules/geist/dist/fonts");
 
@@ -38,7 +38,7 @@ export default async function OpengraphImage() {
         </div>
         <div style={{ display: "flex", marginTop: "auto" }}>
           {stages.map((stage, i) => {
-            const fill = i === last ? INK : "#e9e5d9";
+            const fill = i === last ? INK : "#ebe3cf";
             return (
               <div key={stage.id} style={{ display: "flex", flexGrow: stage.label.length, height: 76 }}>
                 <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", flexGrow: 1, padding: "0 18px", background: fill, borderTop: i === last ? "none" : `1px solid ${RULE}` }}>
