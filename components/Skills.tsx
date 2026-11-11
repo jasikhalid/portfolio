@@ -20,9 +20,9 @@ export default function Skills() {
       </div>
       <ul className="border-t border-ink lg:border-t-0">
         {skills.map((group) => (
-          <li key={group.code} className="reveal grid grid-cols-[minmax(0,1fr)] gap-x-6 gap-y-3 border-b border-rule py-6 sm:grid-cols-[4rem_minmax(0,1fr)] lg:grid-cols-[4rem_minmax(0,1.1fr)_minmax(0,1.6fr)_minmax(0,1fr)] lg:py-7">
+          <li key={group.code} className="tint reveal grid grid-cols-[minmax(0,1fr)] gap-x-6 gap-y-3 border-b border-rule py-6 sm:grid-cols-[4rem_minmax(0,1fr)] lg:grid-cols-[4rem_minmax(0,1.1fr)_minmax(0,1.6fr)_minmax(0,1fr)] lg:py-7">
             <span className="tnum font-mono text-sm text-signal">{group.code}</span>
-            <h3 className="text-lg font-medium leading-snug">{group.label}</h3>
+            <h3 className="tint-key text-lg font-medium leading-snug">{group.label}</h3>
             <p className="break-words font-mono text-[13px] leading-relaxed sm:col-start-2 lg:col-start-auto">
               {group.items.map((item, i) => (
                 <span key={item}>

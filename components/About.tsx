@@ -25,8 +25,8 @@ export default function About() {
         </div>
         <dl className="reveal grid gap-px border-y border-rule bg-rule sm:grid-cols-2 lg:col-span-9 lg:col-start-4 lg:grid-cols-4">
           {facts.map((fact) => (
-            <div key={fact.label} className="bg-paper py-5 sm:pr-5 sm:[&:nth-child(even)]:pl-5 lg:[&:not(:first-child)]:pl-5">
-              <dt className="label">{fact.label}</dt>
+            <div key={fact.label} className="tint-cell bg-paper py-5 sm:pr-5 sm:[&:nth-child(even)]:pl-5 lg:[&:not(:first-child)]:pl-5">
+              <dt className="tint-key label">{fact.label}</dt>
               <dd className="mt-2 font-medium leading-snug">{fact.value}</dd>
               <dd className="mt-1 text-sm text-muted">{fact.note}</dd>
             </div>

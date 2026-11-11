@@ -110,6 +110,18 @@ p { text-wrap: pretty; }
   .pulse { animation: pulse 2.4s var(--ease-in-out) 4; } /* finite, so nothing blinks for long (WCAG 2.2.2) */
 }
 
+/* ---------- Hover ---------- */
+/* A small colour shift under the pointer: rows get a soft cream wash that bleeds past the text, and each row's key
+   (date, code, label) turns caramel. Colour only, so it also applies under reduced motion. Touch screens skip it. */
+@media (hover: hover) {
+  .tint { transition: background-color var(--t-base) var(--ease-out), box-shadow var(--t-base) var(--ease-out); }
+  .tint:hover { background-color: var(--raised); box-shadow: -0.75rem 0 0 var(--raised), 0.75rem 0 0 var(--raised); }
+  .tint-key { transition: color var(--t-fast); }
+  :is(.tint, .tint-cell):hover .tint-key { color: var(--signal); }
+  .tint-cell { transition: background-color var(--t-base) var(--ease-out); }
+  .tint-cell:hover { background-color: var(--raised); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
@@ -128,21 +140,21 @@ p { text-wrap: pretty; }
    Reduced motion: reveals become a plain fade; no parallax, stacking, progress bar or smooth scroll. */
 
 @media (prefers-reduced-motion: no-preference) {
-  html[data-rv] .reveal { transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out); }
+  html[data-rv] .reveal { transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out), background-color var(--t-base) var(--ease-out), box-shadow var(--t-base) var(--ease-out); }
   html[data-rv] .reveal:not([data-shown]) { opacity: 0; transform: translateY(24px); }
   html[data-rv] .reveal-rule { transform-origin: left; transition: transform 800ms var(--ease-out); }
   html[data-rv] .reveal-rule:not([data-shown]) { transform: scaleX(0); }
 }
 @media (prefers-reduced-motion: reduce) {
-  html[data-rv] .reveal { transition: opacity 400ms linear; }
+  html[data-rv] .reveal { transition: opacity 400ms linear, transform 0s, background-color var(--t-base) var(--ease-out), box-shadow var(--t-base) var(--ease-out); }
   html[data-rv] .reveal:not([data-shown]) { opacity: 0; }
 }
 /* Stagger for elements that enter together (set by the script, capped at 5 steps). */
-[data-rd="1"] { transition-delay: 70ms !important; }
-[data-rd="2"] { transition-delay: 140ms !important; }
-[data-rd="3"] { transition-delay: 210ms !important; }
-[data-rd="4"] { transition-delay: 280ms !important; }
-[data-rd="5"] { transition-delay: 350ms !important; }
+[data-rd="1"] { transition-delay: 70ms, 70ms, 0s, 0s !important; }
+[data-rd="2"] { transition-delay: 140ms, 140ms, 0s, 0s !important; }
+[data-rd="3"] { transition-delay: 210ms, 210ms, 0s, 0s !important; }
+[data-rd="4"] { transition-delay: 280ms, 280ms, 0s, 0s !important; }
+[data-rd="5"] { transition-delay: 350ms, 350ms, 0s, 0s !important; }
 @media print { html[data-rv] .reveal, html[data-rv] .reveal-rule { opacity: 1 !important; transform: none !important; } }
 
 .scroll-progress { display: none; }

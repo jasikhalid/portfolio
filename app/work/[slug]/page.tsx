@@ -39,8 +39,8 @@ function List({ items }: { items: string[] }) {
   return (
     <ol className="space-y-3">
       {items.map((item, i) => (
-        <li key={item} className="grid grid-cols-[2.25rem_minmax(0,1fr)] border-b border-rule pb-3 last:border-0">
-          <span className="tnum pt-0.5 font-mono text-sm text-muted">{String(i + 1).padStart(2, "0")}</span>
+        <li key={item} className="tint grid grid-cols-[2.25rem_minmax(0,1fr)] border-b border-rule pb-3 last:border-0">
+          <span className="tint-key tnum pt-0.5 font-mono text-sm text-muted">{String(i + 1).padStart(2, "0")}</span>
           <span><WithCode text={item} /></span>
         </li>
       ))}
@@ -85,8 +85,8 @@ export default async function CaseFilePage({ params }: { params: Promise<Params>
         </div>
         <dl className="enter self-end border-t border-ink lg:col-span-4" style={{ "--d": "200ms" } as React.CSSProperties}>
           {file.fields.map((field) => (
-            <div key={field.label} className="grid grid-cols-[6.5rem_minmax(0,1fr)] gap-4 border-b border-rule py-3 text-sm">
-              <dt className="label pt-0.5">{field.label}</dt>
+            <div key={field.label} className="tint grid grid-cols-[6.5rem_minmax(0,1fr)] gap-4 border-b border-rule py-3 text-sm">
+              <dt className="tint-key label pt-0.5">{field.label}</dt>
               <dd className="font-medium">{field.href ? <a href={field.href} className="link">{field.value}</a> : <WithCode text={field.value} />}</dd>
             </div>
           ))}
@@ -111,12 +111,12 @@ export default async function CaseFilePage({ params }: { params: Promise<Params>
       </div>
 
       <nav aria-label="More case files" className="mt-24 grid gap-px border-y border-ink bg-rule sm:grid-cols-2">
-        <Link href="/#contact" className="row-hover group flex min-h-32 flex-col justify-between bg-paper py-6 sm:pr-8">
-          <span className="label">Have a similar problem?</span>
+        <Link href="/#contact" className="tint-cell row-hover group flex min-h-32 flex-col justify-between bg-paper py-6 sm:pr-8">
+          <span className="tint-key label">Have a similar problem?</span>
           <span className="mt-4 flex items-center gap-2 text-h3">Start a conversation <ArrowRight aria-hidden="true" className="row-arrow text-signal" /></span>
         </Link>
-        <Link href={`/work/${next.slug}`} className="row-hover group flex min-h-32 flex-col justify-between bg-paper py-6 sm:pl-8">
-          <span className="label">Next case file · {101 + work.indexOf(next)}</span>
+        <Link href={`/work/${next.slug}`} className="tint-cell row-hover group flex min-h-32 flex-col justify-between bg-paper py-6 sm:pl-8">
+          <span className="tint-key label">Next case file · {101 + work.indexOf(next)}</span>
           <span className="mt-4 flex items-center gap-2 text-h3">{next.title} <ArrowRight aria-hidden="true" className="row-arrow shrink-0 text-signal" /></span>
         </Link>
       </nav>

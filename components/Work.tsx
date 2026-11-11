@@ -61,13 +61,13 @@ export default function Work() {
           </p>
           <ul className="border-t border-ink sm:border-t-0">
             {sideProjects.map((project) => (
-              <li key={project.title} className="reveal grid gap-1 border-b border-rule py-4 sm:grid-cols-[14rem_minmax(0,1fr)_10rem] sm:gap-6">
+              <li key={project.title} className="tint reveal grid gap-1 border-b border-rule py-4 sm:grid-cols-[14rem_minmax(0,1fr)_10rem] sm:gap-6">
                 <p className="font-medium">
                   {project.title}
                   <span className="mt-0.5 block text-sm font-normal text-muted">{project.context}</span>
                 </p>
                 <p className="leading-relaxed text-muted">{project.text}</p>
-                <p className="mt-1 font-mono text-xs leading-relaxed sm:mt-1"><span className="sr-only">Stack: </span>{project.stack.join(" · ")}</p>
+                <p className="tint-key mt-1 font-mono text-xs leading-relaxed sm:mt-1"><span className="sr-only">Stack: </span>{project.stack.join(" · ")}</p>
               </li>
             ))}
           </ul>

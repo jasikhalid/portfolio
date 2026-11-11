@@ -22,7 +22,7 @@ export default function Contact() {
           <ul className="mt-10 border-t border-ink">
             {links.map((link) => (
               <li key={link.label} className="border-b border-rule">
-                <a href={link.href} className="row-hover group flex min-h-14 items-center justify-between gap-4 py-3 hover:text-signal">
+                <a href={link.href} className="tint row-hover group flex min-h-14 items-center justify-between gap-4 py-3 hover:text-signal">
                   <span className="font-medium">{link.label}</span>
                   <span className="flex items-center gap-3 font-mono text-[13px] text-muted">
                     {link.note}

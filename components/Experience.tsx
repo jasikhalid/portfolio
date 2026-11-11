@@ -21,8 +21,8 @@ export default function Experience() {
             </h3>
             <ol>
               {entries.map((entry) => (
-                <li key={`${entry.org}-${entry.start}`} className="reveal grid gap-x-8 gap-y-1 border-b border-rule py-5 sm:grid-cols-[10rem_minmax(0,1fr)] lg:grid-cols-[12rem_minmax(0,1fr)_minmax(0,1.3fr)]">
-                  <p className="tnum font-mono text-[13px] text-muted sm:pt-0.5">
+                <li key={`${entry.org}-${entry.start}`} className="tint reveal grid gap-x-8 gap-y-1 border-b border-rule py-5 sm:grid-cols-[10rem_minmax(0,1fr)] lg:grid-cols-[12rem_minmax(0,1fr)_minmax(0,1.3fr)]">
+                  <p className="tint-key tnum font-mono text-[13px] text-muted sm:pt-0.5">
                     <DateRange start={entry.start} end={entry.end} />
                   </p>
                   <div>

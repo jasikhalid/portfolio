@@ -70,8 +70,8 @@ export default function Hero() {
       {/* Key fields, in the label/value layout of an Odoo form. */}
       <dl className="enter mt-16 grid grid-cols-2 gap-px border-y border-rule bg-rule sm:mt-20 lg:grid-cols-4" style={d(420)}>
         {fields.map((field) => (
-          <div key={field.label} className="bg-paper py-4 pr-4 [&:nth-child(even)]:pl-4 lg:[&:not(:first-child)]:pl-4">
-            <dt className="label">{field.label}</dt>
+          <div key={field.label} className="tint-cell bg-paper py-4 pr-4 [&:nth-child(even)]:pl-4 lg:[&:not(:first-child)]:pl-4">
+            <dt className="tint-key label">{field.label}</dt>
             <dd className="mt-1.5 font-medium leading-snug">{field.value}</dd>
           </div>
         ))}
