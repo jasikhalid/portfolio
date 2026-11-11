@@ -32,7 +32,7 @@ export default function Skills() {
               ))}
             </p>
             <p className="text-sm text-muted sm:col-start-2 lg:col-start-auto">
-              {group.usedIn.length ? (
+              {group.usedIn.length > 0 && (
                 <>
                   <span className="sr-only">Used in: </span>
                   {group.usedIn.map((ref, i) => (
@@ -42,8 +42,6 @@ export default function Skills() {
                     </span>
                   ))}
                 </>
-              ) : (
-                <a href="#prompting" className="link text-ink">See 400 · Prompting</a>
               )}
             </p>
           </li>

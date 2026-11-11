@@ -12,7 +12,7 @@ const links = [
 
 export default function Contact() {
   return (
-    <Section id="contact" code="600" label="Contact" title="Have an Odoo project or a role?" intro={forBusinesses}>
+    <Section id="contact" code="500" label="Contact" title="Have an Odoo project or a role?" intro={forBusinesses}>
       <div className="grid gap-14 lg:grid-cols-12 lg:gap-8">
         <div className="reveal lg:col-span-5">
           <p className="label">Email, the fastest way</p>

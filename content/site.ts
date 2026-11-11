@@ -62,9 +62,8 @@ export const nav = [
   { code: "100", label: "Work", href: "/#work" },
   { code: "200", label: "Stack", href: "/#stack" },
   { code: "300", label: "Experience", href: "/#experience" },
-  { code: "400", label: "Prompting", href: "/#prompting" },
-  { code: "500", label: "About", href: "/#about" },
-  { code: "600", label: "Contact", href: "/#contact" },
+  { code: "400", label: "About", href: "/#about" },
+  { code: "500", label: "Contact", href: "/#contact" },
 ];
 
 export const hero = {
@@ -283,24 +282,6 @@ export const skills: SkillGroup[] = [
   { code: "270", label: "Ship it", items: ["Git", "GitHub Actions", "Linux deployment"], usedIn: ["garment-erp", "Business website"] },
   { code: "280", label: "Think with AI", items: ["Prompt engineering", "Building with AI"], usedIn: [] },
 ];
-
-// The "Prompting" section. TODO(jasi): this brief is an illustrative example written for the redesign,
-// based only on the Vehicle Repair module's public description. Replace it with a real prompt you have used.
-export const prompting = {
-  title: "I brief an AI the way I'd brief a senior colleague.",
-  intro:
-    "Prompting is a spec, not a wish. The model gets the same things a good developer would ask for: the context, the exact task, the constraints and a way to check the answer.",
-  task: "Record rules for the Vehicle Repair module",
-  vague: "write odoo security for my repair module",
-  briefed: [
-    { key: "Context", value: "Odoo 19 custom module vehicle_repair. A repair.order links a fleet.vehicle, a res.partner and the stock moves for parts." },
-    { key: "Task", value: "Write ir.rule record rules: technicians see only repair orders assigned to them; repair managers see all of them." },
-    { key: "Constraints", value: "Use the groups already in security/groups.xml. No sudo(). Must stay correct in a multi-company database." },
-    { key: "Output", value: "One XML file, then a short table of test cases to run while logged in as each role." },
-    { key: "Check", value: "Before writing code, list every assumption you are making about field names, and stop if one is unclear." },
-  ],
-  takeaways: ["Name the real models", "State what must not happen", "Ask for its assumptions first"],
-};
 
 // DRAFT: keep it short and in your own voice.
 export const about = [

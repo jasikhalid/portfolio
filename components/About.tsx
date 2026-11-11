@@ -11,7 +11,7 @@ const facts = [
 
 export default function About() {
   return (
-    <Section id="about" code="500" label="About" title="A little about me.">
+    <Section id="about" code="400" label="About" title="A little about me.">
       <div className="grid gap-12 lg:grid-cols-12 lg:gap-8">
         <div className="reveal space-y-5 text-lead lg:col-span-7 lg:col-start-4">
           {about.map((paragraph) => <p key={paragraph} className="max-w-prose">{paragraph}</p>)}
