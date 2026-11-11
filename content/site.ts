@@ -54,6 +54,9 @@ export const contact = {
   github: "https://github.com/jasikhalid",
   resume: "/muhammed-jasi-resume.pdf",
   formspree: "https://formspree.io/f/xppzljze",
+  // Google Apps Script web app that adds each message to a Google Sheet. Set up with scripts/contact-sheet.gs.
+  // Leave empty to skip the sheet; Formspree keeps working either way.
+  sheet: "",
 };
 
 // Ledger account codes double as section numbers. Hrefs start with "/" so they work from case-file pages too.

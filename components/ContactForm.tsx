@@ -40,6 +40,16 @@ export default function ContactForm() {
     }
 
     setStatus({ state: "sending" });
+    if (contact.sheet && !data.get("_gotcha")) {
+      const row = new URLSearchParams({
+        name: String(data.get("name")).trim(),
+        email: String(data.get("email")).trim(),
+        message: String(data.get("message")).trim(),
+        page: window.location.pathname,
+      });
+      // Apps Script sends no CORS headers, so its reply can't be read. Formspree's reply decides what the visitor sees.
+      fetch(contact.sheet, { method: "POST", mode: "no-cors", body: row }).catch(() => {});
+    }
     try {
       const res = await fetch(contact.formspree, { method: "POST", body: data, headers: { Accept: "application/json" } });
       if (res.ok) {
