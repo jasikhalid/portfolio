@@ -90,8 +90,7 @@ export const experience: Entry[] = [
     org: "Codex Business Solutions",
     place: "Tirur",
     role: "Odoo Developer",
-    start: "2026",
-    // TODO(jasi): add your start month ("2026-08") and a one-line summary of public work.
+    start: "2026-09",
   },
   {
     stage: "codex",
@@ -165,8 +164,7 @@ export const experience: Entry[] = [
   },
 ];
 
-// DRAFT: "problem", "decisions" and "result" are written only from the résumé bullets.
-// Rewrite them in your own words; add a "Code" field with a GitHub URL if the source is public.
+// Add a "Code" field with a GitHub URL to a case file if its source is public.
 export const work: CaseFile[] = [
   {
     slug: "garment-erp",
@@ -183,7 +181,7 @@ export const work: CaseFile[] = [
       { label: "Status", value: "Started Nov 2026, in progress" },
     ],
     problem:
-      "A garment design has to travel from the designer's sketch through an estimate, approval and a timed sample before it becomes production work orders, with fabric dyed by subcontractors along the way. ERPNext covers the operations; the design-to-production path needed its own app.",
+      "The client makes women's clothing. A new design starts as a sketch, gets an estimate and an approval, goes through a timed sample, and only then becomes production work. Fabric goes out to subcontractors for dyeing along the way. ERPNext already handles buying, stock and manufacturing well, but nothing in it follows a design from sketch to production, so I'm building that part as its own app.",
     built: [
       "Stitch Flow, a custom Frappe app with a Python backend and a Vue 3 / frappe-ui frontend",
       "Design-to-production state machine: design approval, sample tracking, sample approval, production",
@@ -193,19 +191,18 @@ export const work: CaseFile[] = [
       "Project delivery: discovery workshop, business requirements document, gap analysis, decisions log and a phased plan",
     ],
     decisions: [
-      "Stitch Flow generates standard ERPNext documents (items, variants, BOMs, work orders) instead of parallel records, so manufacturing and stock stay native.",
-      "Role-based approvals with a no-self-approval rule, and field-level permissions that hide costs from designers.",
-      "Roles, permissions and workflows ship as fixtures, so every site is configured the same way.",
-      "Around 150 automated integration tests run in CI on GitHub Actions.",
+      "I didn't want a second set of records living next to ERPNext. Stitch Flow creates normal ERPNext items, variants, BOMs and work orders, so stock and manufacturing keep working the way ERPNext expects.",
+      "Nobody can approve their own work, and designers never see costs. Roles and field-level permissions enforce both.",
+      "Roles, permissions and workflows ship as fixtures, so a fresh site gets exactly the same setup without anyone clicking through settings.",
+      "Around 150 integration tests run on GitHub Actions, so I can change the approval flow without quietly breaking it.",
     ],
-    result: "Stitch Flow v1 is built and tested. The ERPNext configuration phases are under way.",
+    result: "Stitch Flow v1 is built and its tests pass. I'm now setting up ERPNext with the client, one phase at a time.",
   },
   {
     slug: "vehicle-repair",
     title: "Vehicle Repair Management System",
     context: "Custom module, built during training at Cybrosys",
     summary: "One repair order that moves from intake to technician, parts and invoice without leaving Odoo.",
-    // TODO(jasi): the redesign brief says Odoo 17, this file says Odoo 19. Confirm which and fix both mentions.
     stack: ["Odoo 19", "Python", "OWL", "QWeb", "PostgreSQL", "WhatsApp/SMS API"],
     fields: [
       { label: "Platform", value: "Odoo 19" },
@@ -214,7 +211,7 @@ export const work: CaseFile[] = [
       { label: "Period", value: "Mar – May 2026" },
     ],
     problem:
-      "A repair job passes through intake, a technician, the parts store and billing. The module keeps one repair order moving through all four inside Odoo.",
+      "In a repair shop, one job passes through four hands: whoever takes the vehicle in, the technician, the parts store and billing. This module gives all four the same repair order to work on, inside Odoo.",
     built: [
       "Repair intake and technician job assignment, with wizards for the multi-step parts",
       "Parts tracked through Stock and billed through Sales",
@@ -223,11 +220,11 @@ export const work: CaseFile[] = [
       "Payment gateway and WhatsApp/SMS integrations",
     ],
     decisions: [
-      "Built on the existing Stock and Sales flows so inventory and invoicing behave like the rest of Odoo.",
-      "Security groups, ir.model.access and ir.rule record rules control what each role can see and change.",
-      "Custom OWL components and wizards automate job assignment.",
+      "I built on Odoo's own Stock and Sales flows instead of writing my own, so parts and invoices behave exactly like the rest of Odoo.",
+      "Each role sees and changes only what it should, using security groups, ir.model.access and ir.rule record rules.",
+      "I automated job assignment with custom OWL components and wizards.",
     ],
-    result: "A working module covering the whole job, from intake to invoice, which I built on my own during the training.",
+    result: "It works end to end, from the vehicle coming in to the invoice going out. I built it on my own during my Odoo training.",
   },
   {
     slug: "accounting-dashboard",
@@ -242,17 +239,17 @@ export const work: CaseFile[] = [
       { label: "Period", value: "2026" },
     ],
     problem:
-      "Show the key accounting figures on one screen, live from journal entries, and let people open the records behind each number.",
+      "I wanted the key accounting numbers on one screen, live from journal entries, with a way to open the records behind any number.",
     built: [
       "KPI cards and Chart.js charts inside OWL components",
       "Date-range filter applied across every figure",
       "Click-through from each KPI card to a filtered list view",
     ],
     decisions: [
-      "Figures are aggregated from account.move and account.move.line, so they are live rather than a nightly snapshot.",
-      "Click-through opens Odoo's own list views with the same filter, so users stay in screens they know.",
+      "The numbers come straight from account.move and account.move.line, so they're always current, not last night's snapshot.",
+      "Clicking a card opens Odoo's normal list view with the same filter, so people land on a screen they already know.",
     ],
-    result: "A working dashboard module, built during the training.",
+    result: "A working dashboard module, built during my Odoo training.",
   },
 ];
 
@@ -275,7 +272,7 @@ export const sideProjects: SideProject[] = [
 export const skills: SkillGroup[] = [
   { code: "210", label: "Model data and business logic", items: ["Python", "Odoo ORM", "Wizards", "PostgreSQL", "Django", "MySQL"], usedIn: ["vehicle-repair", "accounting-dashboard", "garment-erp"] },
   { code: "220", label: "Control who sees what", items: ["Security groups", "ir.model.access", "ir.rule", "Role-based access in Django"], usedIn: ["vehicle-repair", "garment-erp", "EventEase"] },
-  { code: "230", label: "Build the screens", items: ["OWL", "QWeb views and reports", "Odoo Website and portal", "React", "Next.js", "JavaScript"], usedIn: ["vehicle-repair", "accounting-dashboard", "ClanCulture"] },
+  { code: "230", label: "Build the screens", items: ["OWL", "QWeb views and reports", "Odoo Website and portal", "React", "JavaScript"], usedIn: ["vehicle-repair", "accounting-dashboard", "ClanCulture"] },
   { code: "240", label: "Extend Odoo apps", items: ["Inventory", "Sales", "Purchase", "CRM", "Fleet", "Accounting", "POS"], usedIn: ["vehicle-repair", "accounting-dashboard"] },
   { code: "250", label: "Build on ERPNext", items: ["ERPNext v16", "Frappe apps", "Vue 3 / frappe-ui", "Workflows and fixtures", "Tally migration", "Integration tests"], usedIn: ["garment-erp"] },
   { code: "260", label: "Connect other systems", items: ["REST APIs", "Payment gateways", "WhatsApp and SMS APIs"], usedIn: ["vehicle-repair", "ClanCulture"] },
@@ -283,11 +280,10 @@ export const skills: SkillGroup[] = [
   { code: "280", label: "Think with AI", items: ["Prompt engineering", "Building with AI"], usedIn: [] },
 ];
 
-// DRAFT: keep it short and in your own voice.
 export const about = [
-  "I'm Jasi, based in Manjeri, Kerala. I studied computer science at the University of Calicut and started out building web apps with Django and React, in internships and for freelance clients in Canada and Saudi Arabia.",
-  "Six months of Odoo training at Cybrosys moved me into ERP work, and I now do it full-time at Codex Business Solutions in Tirur. Alongside it, I'm delivering an ERPNext v16 implementation for a garment manufacturer as a freelance project.",
-  "I'm open to relocating to the Gulf and to remote roles.",
+  "I'm Jasi, from Manjeri in Kerala. I studied computer science at the University of Calicut, and my first real projects were web apps in Django and React, built during internships and for freelance clients in Canada and Saudi Arabia.",
+  "Six months of Odoo training at Cybrosys pulled me into ERP work: software a business actually runs on every day. Since September 2026 I've been an Odoo Developer at Codex Business Solutions in Tirur, and on the side I'm delivering an ERPNext implementation for a garment manufacturer.",
+  "I also enjoy prompt engineering and building things with AI. I'm open to moving to the Gulf and to remote roles.",
 ];
 
 export const forBusinesses =
