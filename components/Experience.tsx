@@ -1,4 +1,46 @@
-import { timeline } from "@/app/data";
-import { Reveal } from "./Reveal";
-export function TimelineItem({ item, index }: { item:string[]; index:number }) { return <div className="relative grid gap-2 pb-10 pl-9 sm:grid-cols-[150px_1fr] sm:gap-8"><span className="absolute left-0 top-1 h-3 w-3 rounded-full border-2 border-cyan-300 bg-[#08090d] shadow-[0_0_14px_#22d3ee]"/><p className="font-mono text-[10px] text-cyan-300">{item[2]}</p><div><h3 className="font-semibold">{item[0]}</h3><p className="mt-1 text-sm text-zinc-400">{item[1]}</p><p className="mt-2 max-w-xl text-sm leading-relaxed text-zinc-500">{item[3]}</p></div></div> }
-export default function Experience(){return <section id="experience" className="border-y border-white/[.07] bg-[#0b0c12]"><div className="section grid gap-12 lg:grid-cols-[.75fr_1.25fr]"><Reveal><p className="eyebrow">04 / Experience</p><h2 className="section-title">A record of<br/><span className="gradient-text">building forward.</span></h2><p className="max-w-xs text-sm leading-relaxed text-zinc-500">Training, freelance ownership, and team environments have shaped a practical, delivery-minded approach.</p></Reveal><Reveal delay={.1}><div className="relative border-l border-white/10">{timeline.map((item,i)=><TimelineItem item={item} index={i} key={item[0]}/>)}</div></Reveal></div></section>}
+import { experience, stages } from "@/content/site";
+import Section from "./Section";
+import { DateRange } from "./text";
+
+// Experience as journal entries, grouped by career stage (newest first), like a ledger with subtotals.
+export default function Experience() {
+  const groups = [...stages].reverse().map((stage) => ({ stage, entries: experience.filter((e) => e.stage === stage.id) }));
+  return (
+    <Section id="experience" code="300" label="Experience" title="From full-stack apps to Odoo.">
+      <div className="relative space-y-14 pl-6 sm:pl-10">
+        {/* Timeline: a hairline track with a line that draws itself on scroll (static where unsupported). */}
+        <div aria-hidden="true" className="absolute inset-y-0 left-0 w-px bg-rule">
+          <div className="timeline-line h-full w-px bg-signal" />
+        </div>
+        {groups.map(({ stage, entries }) => (
+          <div key={stage.id}>
+            <h3 className="reveal relative flex items-baseline justify-between gap-4 border-b border-ink pb-3">
+              <span aria-hidden="true" className="absolute -left-6 top-1/2 h-[7px] w-[7px] -translate-x-[3px] -translate-y-1/2 rounded-full bg-signal sm:-left-10" />
+              <span className="text-lg font-medium">{stage.label}</span>
+              <span className="tnum font-mono text-sm text-muted">{stage.period}</span>
+            </h3>
+            <ol>
+              {entries.map((entry) => (
+                <li key={`${entry.org}-${entry.start}`} className="tint reveal grid gap-x-8 gap-y-1 border-b border-rule py-5 sm:grid-cols-[10rem_minmax(0,1fr)] lg:grid-cols-[12rem_minmax(0,1fr)_minmax(0,1.3fr)]">
+                  <p className="tint-key tnum font-mono text-[13px] text-muted sm:pt-0.5">
+                    <DateRange start={entry.start} end={entry.end} />
+                  </p>
+                  <div>
+                    <p className="font-medium leading-snug">
+                      {entry.role}
+                      {!entry.end && (
+                        <span className="stamp ml-2 translate-y-[-1px] px-1.5 py-0 align-middle text-[10px] text-posted">Current</span>
+                      )}
+                    </p>
+                    <p className="mt-0.5 text-sm text-muted">{entry.org}{entry.place && `, ${entry.place}`}</p>
+                  </div>
+                  {entry.summary && <p className="mt-2 max-w-prose text-[15px] leading-relaxed text-muted sm:col-start-2 lg:col-start-auto lg:mt-0">{entry.summary}</p>}
+                </li>
+              ))}
+            </ol>
+          </div>
+        ))}
+      </div>
+    </Section>
+  );
+}

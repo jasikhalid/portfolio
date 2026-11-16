@@ -1,4 +1,52 @@
-import { skillGroups } from "@/app/data";
-import { Reveal } from "./Reveal";
-export function SkillBadge({ skill }: { skill:string }) { return <span className="rounded-md bg-white/[.045] px-2.5 py-2 font-mono text-[11px] text-zinc-300 transition hover:bg-cyan-300/10 hover:text-cyan-100">{skill}</span> }
-export default function Skills() { return <section id="skills" className="border-y border-white/[.07] bg-[#0b0c12]"><div className="section"><Reveal><p className="eyebrow">02 / Capabilities</p><h2 className="section-title">A stack built for<br/><span className="gradient-text">real operations.</span></h2></Reveal><div className="mt-12 grid gap-3 md:grid-cols-2 lg:grid-cols-3">{skillGroups.map((group,i)=><Reveal key={group.label} delay={i*.04}><article className="glass h-full rounded-xl p-5 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/30"><p className="font-mono text-[10px] tracking-[.12em] text-cyan-300">{group.label}</p><div className="mt-5 flex flex-wrap gap-1.5">{group.skills.map(s=><SkillBadge key={s} skill={s}/>)}</div><div className="mt-6 h-1 overflow-hidden rounded-full bg-white/5"><div className="h-full rounded-full bg-gradient-to-r from-violet-500 to-cyan-400" style={{width:`${72+i*4}%`}}/></div></article></Reveal>)}</div></div></section> }
+import Link from "next/link";
+import { skills, work } from "@/content/site";
+import Section from "./Section";
+import { WithCode } from "./text";
+
+const titles = Object.fromEntries(work.map((w) => [w.slug, w.title]));
+
+// The stack as a chart of accounts: each capability has a code, the tools, and where it was used.
+export default function Skills() {
+  return (
+    <Section
+      id="stack"
+      code="200"
+      label="Stack"
+      title="A chart of accounts for what I can do."
+      intro="Grouped by the job each tool does, with the work where you can see it used."
+    >
+      <div aria-hidden="true" className="label hidden grid-cols-[4rem_minmax(0,1.1fr)_minmax(0,1.6fr)_minmax(0,1fr)] gap-6 border-b border-ink pb-3 lg:grid">
+        <span>Code</span><span>Capability</span><span>Tools</span><span>Used in</span>
+      </div>
+      <ul className="border-t border-ink lg:border-t-0">
+        {skills.map((group) => (
+          <li key={group.code} className="tint reveal grid grid-cols-[minmax(0,1fr)] gap-x-6 gap-y-3 border-b border-rule py-6 sm:grid-cols-[4rem_minmax(0,1fr)] lg:grid-cols-[4rem_minmax(0,1.1fr)_minmax(0,1.6fr)_minmax(0,1fr)] lg:py-7">
+            <span className="tnum font-mono text-sm text-signal">{group.code}</span>
+            <h3 className="tint-key text-lg font-medium leading-snug">{group.label}</h3>
+            <p className="break-words font-mono text-[13px] leading-relaxed sm:col-start-2 lg:col-start-auto">
+              {group.items.map((item, i) => (
+                <span key={item}>
+                  {i > 0 && <span aria-hidden="true" className="px-1.5 text-muted">/</span>}
+                  <WithCode text={item} />
+                </span>
+              ))}
+            </p>
+            <p className="text-sm text-muted sm:col-start-2 lg:col-start-auto">
+              {group.usedIn.length > 0 && (
+                <>
+                  <span className="sr-only">Used in: </span>
+                  {group.usedIn.map((ref, i) => (
+                    <span key={ref}>
+                      {i > 0 && ", "}
+                      {titles[ref] ? <Link href={`/work/${ref}`} className="link text-ink">{titles[ref]}</Link> : ref}
+                    </span>
+                  ))}
+                </>
+              )}
+            </p>
+          </li>
+        ))}
+      </ul>
+    </Section>
+  );
+}

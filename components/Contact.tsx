@@ -1,7 +1,42 @@
-import { Download, Github, Linkedin, Mail, MapPin, Phone } from "lucide-react";
-import { contacts } from "@/app/data";
+import { ArrowUpRight } from "lucide-react";
+import { contact, forBusinesses } from "@/content/site";
 import ContactForm from "./ContactForm";
+import Section from "./Section";
+
+const links = [
+  { label: "LinkedIn", href: contact.linkedin, note: "Profile" },
+  { label: "GitHub", href: contact.github, note: "@jasikhalid" },
+  { label: "WhatsApp", href: contact.whatsapp, note: contact.phone },
+  { label: "Résumé", href: contact.resume, note: "PDF" },
+];
 
 export default function Contact() {
-  return <><section id="testimonials" className="border-y border-white/[.07] bg-[#0b0c12]"><div className="section py-16 text-center"><p className="eyebrow">06 / Testimonials</p><p className="mt-5 text-xl text-zinc-400">Client feedback coming soon<span className="text-cyan-300">.</span></p></div></section><section id="contact" className="section"><div className="grid gap-12 lg:grid-cols-[.85fr_1.15fr]"><div><p className="eyebrow">07 / Contact</p><h2 className="section-title">Let&apos;s build the<br/><span className="gradient-text">right system.</span></h2><p className="max-w-sm leading-relaxed text-zinc-400">Open to full-time roles, freelance work, and conversations about a tricky business workflow.</p><div className="mt-8 inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/5 px-3 py-2 font-mono text-[10px] text-emerald-300"><span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-300"/>OPEN TO FULL-TIME & FREELANCE</div><div className="mt-8 grid gap-3 text-sm text-zinc-400"><a href={`mailto:${contacts.email}`} className="flex items-center gap-3 hover:text-cyan-200"><Mail size={16}/>{contacts.email}</a><a href="https://wa.me/917736219598" className="flex items-center gap-3 hover:text-cyan-200"><Phone size={16}/>{contacts.phone}</a><p className="flex items-center gap-3"><MapPin size={16}/>{contacts.location} · open to relocation</p><div className="flex gap-4 pt-2"><a aria-label="GitHub" href={contacts.github}><Github size={18}/></a><a aria-label="LinkedIn" href={contacts.linkedin}><Linkedin size={18}/></a><a href={contacts.resume} className="flex items-center gap-1.5 font-mono text-xs text-cyan-300"><Download size={14}/> Resume</a></div></div></div><ContactForm/></div></section></>;
+  return (
+    <Section id="contact" code="500" label="Contact" title="Have an Odoo project or a role?" intro={forBusinesses}>
+      <div className="grid gap-14 lg:grid-cols-12 lg:gap-8">
+        <div className="reveal lg:col-span-5">
+          <p className="label">Email, the fastest way</p>
+          <a href={`mailto:${contact.email}`} className="link mt-3 inline-block break-all text-[clamp(1.5rem,1rem+2.2vw,2.4rem)] font-medium leading-tight tracking-tight">
+            {contact.email}
+          </a>
+          <ul className="mt-10 border-t border-ink">
+            {links.map((link) => (
+              <li key={link.label} className="border-b border-rule">
+                <a href={link.href} className="tint row-hover group flex min-h-14 items-center justify-between gap-4 py-3 hover:text-signal">
+                  <span className="font-medium">{link.label}</span>
+                  <span className="flex items-center gap-3 font-mono text-[13px] text-muted">
+                    {link.note}
+                    <ArrowUpRight size={16} aria-hidden="true" className="row-arrow text-ink group-hover:text-signal" />
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="reveal lg:col-span-6 lg:col-start-7">
+          <ContactForm />
+        </div>
+      </div>
+    </Section>
+  );
 }

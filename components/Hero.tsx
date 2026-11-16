@@ -1,6 +1,98 @@
-import { ArrowDownRight, Github, Linkedin, Sparkles } from "lucide-react";
-import RoleCycler from "./RoleCycler";
+import { ArrowDown, ArrowRight } from "lucide-react";
+import { hero, site, stages } from "@/content/site";
+import HeroFigure from "./HeroFigure";
+import Magnetic from "./Magnetic";
+import ModuleStack from "./ModuleStack";
+
+const d = (ms: number) => ({ "--d": `${ms}ms` }) as React.CSSProperties;
+
+const fields = [
+  { label: "Role", value: site.role },
+  { label: "At", value: site.employer.name },
+  { label: "Based in", value: "Manjeri, Kerala" },
+  { label: "Open to", value: "Kerala, the Gulf, remote" },
+];
 
 export default function Hero() {
-  return <section id="home" className="site-grid relative flex min-h-[780px] items-center overflow-hidden px-6 pt-24"><div className="absolute left-[12%] top-[18%] h-72 w-72 rounded-full bg-violet-600/20 blur-[110px]"/><div className="absolute right-[8%] top-[25%] h-80 w-80 rounded-full bg-cyan-500/15 blur-[120px]"/><div className="relative mx-auto grid w-full max-w-6xl gap-12 py-20 lg:grid-cols-[1.35fr_.65fr] lg:items-center"><div><div className="hero-entrance hero-entrance-1 mb-7 inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-300/5 px-3 py-1.5 font-mono text-[11px] text-cyan-200"><span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400"/> AVAILABLE FOR SELECT WORK</div><h1 className="hero-entrance hero-entrance-2 max-w-3xl text-[clamp(3.6rem,9vw,7.6rem)] font-semibold leading-[.83] tracking-[-.075em]">Muhammed<br/><span className="gradient-text">Jasi.</span></h1><div className="mt-8 flex items-center gap-3 font-mono text-sm text-zinc-300"><span className="text-violet-300">&gt;</span><RoleCycler/></div><p className="hero-entrance hero-entrance-3 mt-6 max-w-xl text-lg leading-relaxed text-zinc-400">I build ERP systems, business automation modules, and full-stack web apps that companies actually run on.</p><div className="mt-9 flex flex-wrap gap-3"><a href="#projects" className="button-primary">View projects <ArrowDownRight size={17}/></a><a href="#contact" className="button-secondary">Hire me <Sparkles size={16}/></a></div><div className="mt-10 flex gap-4 text-zinc-500"><a aria-label="GitHub" href="https://github.com/jasikhalid" target="_blank"><Github size={19}/></a><a aria-label="LinkedIn" href="https://linkedin.com/in/muhammed-jasi-396975305" target="_blank"><Linkedin size={19}/></a></div></div><div className="hero-entrance hero-entrance-4 glass relative overflow-hidden rounded-2xl p-1 shadow-glow"><div className="rounded-xl bg-[#0b0d13] p-5"><div className="mb-6 flex gap-1.5"><i className="h-2.5 w-2.5 rounded-full bg-rose-400"/><i className="h-2.5 w-2.5 rounded-full bg-amber-300"/><i className="h-2.5 w-2.5 rounded-full bg-emerald-400"/></div><pre className="overflow-x-auto font-mono text-xs leading-7 text-zinc-400"><code><span className="text-violet-300">class</span> <span className="text-cyan-300">Builder</span>{" {"}{"\n"}  focus = ["Odoo", "Automation"]{"\n"}  stack = ["Python", "OWL", "React"]{"\n\n"}  <span className="text-violet-300">def</span> <span className="text-cyan-300">ship</span>(self, idea):{"\n"}    <span className="text-violet-300">return</span> business_value{"\n"}{"}"}</code></pre><div className="mt-4 border-t border-white/10 pt-4 font-mono text-[10px] text-emerald-300">● system.status = ready_to_build</div></div></div></div><a href="#about" className="absolute bottom-7 left-1/2 -translate-x-1/2 font-mono text-[10px] tracking-[.2em] text-zinc-500">SCROLL_TO_EXPLORE ↓</a></section>;
+  const last = stages.length - 1;
+  return (
+    <section aria-labelledby="hero-title" className="hero-exit page pb-6 pt-8 sm:pt-12 lg:pt-14">
+      {/* Record header, like the top of an ERP form. */}
+      <div className="enter flex flex-wrap items-center justify-between gap-3" style={d(0)}>
+        <p className="label tnum">
+          <span className="text-signal">000</span> · Record / {site.name}
+        </p>
+        <p className="stamp text-posted">
+          <span aria-hidden="true" className="dot pulse" />
+          {hero.availability}
+        </p>
+      </div>
+      <div aria-hidden="true" className="draw mt-4 h-px bg-ink" style={d(60)} />
+
+      <h1 id="hero-title" className="mt-10 text-display sm:mt-14">
+        {hero.headlineLines.map((line, i) => (
+          <span key={line} className="enter-line block" style={d(i * 70)}>
+            {i === hero.headlineLines.length - 1 ? <span className="text-signal">{line}</span> : line}
+          </span>
+        ))}
+      </h1>
+
+      <div className="mt-10 grid items-end gap-12 lg:mt-12 lg:grid-cols-12 lg:gap-8">
+        <div className="lg:col-span-6">
+          <p className="enter max-w-[46ch] text-lead text-muted" style={d(260)}>{hero.intro}</p>
+          <div className="enter mt-10 flex flex-wrap gap-3" style={d(340)}>
+            <Magnetic>
+              <a href="#contact" className="btn btn-primary">
+                Hire me or start a project <ArrowRight size={18} aria-hidden="true" className="arrow" />
+              </a>
+            </Magnetic>
+            <Magnetic>
+              <a href="#work" className="btn btn-ghost">
+                See the work <ArrowDown size={18} aria-hidden="true" className="arrow" />
+              </a>
+            </Magnetic>
+          </div>
+        </div>
+
+        <figure className="enter lg:col-span-5 lg:col-start-8 xl:col-span-4 xl:col-start-9" style={d(200)}>
+          <div className="relative mx-auto aspect-[4/5] w-full max-w-[22rem] lg:max-w-none">
+            <HeroFigure>
+              <ModuleStack className="h-full w-full" />
+            </HeroFigure>
+          </div>
+          <figcaption className="label mt-3 flex justify-between gap-4 border-t border-rule pt-3">
+            <span>Fig. 1</span>
+            <span className="text-right">Modules I build on, as one system</span>
+          </figcaption>
+        </figure>
+      </div>
+
+      {/* Key fields, in the label/value layout of an Odoo form. */}
+      <dl className="enter mt-16 grid grid-cols-2 gap-px border-y border-rule bg-rule sm:mt-20 lg:grid-cols-4" style={d(420)}>
+        {fields.map((field) => (
+          <div key={field.label} className="tint-cell bg-paper py-4 pr-4 [&:nth-child(even)]:pl-4 lg:[&:not(:first-child)]:pl-4">
+            <dt className="tint-key label">{field.label}</dt>
+            <dd className="mt-1.5 font-medium leading-snug">{field.value}</dd>
+          </div>
+        ))}
+      </dl>
+
+      {/* Career as an Odoo statusbar: the last stage is the current one. */}
+      <div className="enter mt-8" style={d(480)}>
+        <p className="label">Career stage</p>
+        <ol className="mt-3 grid grid-cols-2 gap-1 sm:flex">
+          {stages.map((stage, i) => (
+            <li
+              key={stage.id}
+              aria-current={i === last ? "step" : undefined}
+              className={`chevron flex min-h-14 flex-1 flex-col justify-center px-4 py-2 ${i === last ? "bg-ink text-paper" : "bg-sunken"}`}
+            >
+              <span className="text-sm font-medium leading-tight">{stage.label}</span>
+              <span className={`tnum font-mono text-xs ${i === last ? "text-paper" : "text-muted"}`}>{stage.period}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  );
 }

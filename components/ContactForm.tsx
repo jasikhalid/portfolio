@@ -1,21 +1,144 @@
 "use client";
 
-import { Send } from "lucide-react";
-import { FormEvent, useState } from "react";
+import { useRef, useState, type FormEvent } from "react";
+import { contact } from "@/content/site";
+
+type Field = "name" | "email" | "message";
+type Errors = Partial<Record<Field, string>>;
+type Status = { state: "idle" | "sending" } | { state: "sent"; email: string } | { state: "failed"; message: string };
+
+const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function validate(data: FormData): Errors {
+  const name = String(data.get("name") ?? "").trim();
+  const email = String(data.get("email") ?? "").trim();
+  const message = String(data.get("message") ?? "").trim();
+  const errors: Errors = {};
+  if (!name) errors.name = "Enter your name.";
+  if (!email) errors.email = "Enter your email address so I can reply.";
+  else if (!EMAIL.test(email)) errors.email = "This email address is missing part of it. Use the form name@company.com.";
+  if (!message) errors.message = "Write a short message: what you need built, or the role you are hiring for.";
+  return errors;
+}
+
+const fallback = `You can also email me at ${contact.email}.`;
 
 export default function ContactForm() {
-  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const form = useRef<HTMLFormElement>(null);
+  const [errors, setErrors] = useState<Errors>({});
+  const [status, setStatus] = useState<Status>({ state: "idle" });
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const data = new FormData(form);
-    setStatus("sending");
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const found = validate(data);
+    setErrors(found);
+    const first = (Object.keys(found) as Field[])[0];
+    if (first) {
+      form.current?.querySelector<HTMLElement>(`[name="${first}"]`)?.focus();
+      return;
+    }
+
+    setStatus({ state: "sending" });
+    if (contact.sheet && !data.get("_gotcha")) {
+      const row = new URLSearchParams({
+        name: String(data.get("name")).trim(),
+        email: String(data.get("email")).trim(),
+        message: String(data.get("message")).trim(),
+        page: window.location.pathname,
+      });
+      // Apps Script sends no CORS headers, so its reply can't be read. Formspree's reply decides what the visitor sees.
+      fetch(contact.sheet, { method: "POST", mode: "no-cors", body: row }).catch(() => {});
+    }
     try {
-      const res = await fetch("https://formspree.io/f/xppzljze", { method: "POST", body: data, headers: { Accept: "application/json" } });
-      if (res.ok) { setStatus("success"); form.reset(); } else { setStatus("error"); }
-    } catch { setStatus("error"); }
+      const res = await fetch(contact.formspree, { method: "POST", body: data, headers: { Accept: "application/json" } });
+      if (res.ok) {
+        setStatus({ state: "sent", email: String(data.get("email")).trim() });
+        form.current?.reset();
+        return;
+      }
+      const body: { errors?: { field?: string; message: string }[] } = await res.json().catch(() => ({}));
+      const detail = body.errors?.map((e) => (e.field ? `${e.field}: ${e.message}` : e.message)).join(" ");
+      setStatus({
+        state: "failed",
+        message: `Your message was not sent. The form service replied with an error (${res.status}${detail ? `: ${detail}` : ""}). Try again in a minute. ${fallback}`,
+      });
+    } catch {
+      setStatus({
+        state: "failed",
+        message: `Your message was not sent because the form service could not be reached. Check your connection and try again. ${fallback}`,
+      });
+    }
   }
 
-  return <form onSubmit={handleSubmit} className="glass rounded-2xl p-5 sm:p-7"><p className="font-mono text-xs text-cyan-200">// SEND A MESSAGE</p><label className="mt-6 block text-xs text-zinc-400">Name<input required name="name" className="mt-2 w-full rounded-lg border border-white/10 bg-black/20 px-3 py-3 text-sm outline-none focus:border-cyan-300" placeholder="Your name"/></label><label className="mt-4 block text-xs text-zinc-400">Email<input required type="email" name="email" className="mt-2 w-full rounded-lg border border-white/10 bg-black/20 px-3 py-3 text-sm outline-none focus:border-cyan-300" placeholder="you@company.com"/></label><label className="mt-4 block text-xs text-zinc-400">Message<textarea required name="message" rows={4} className="mt-2 w-full resize-none rounded-lg border border-white/10 bg-black/20 px-3 py-3 text-sm outline-none focus:border-cyan-300" placeholder="What are you building?"/></label><button disabled={status === "sending"} className="button-primary mt-5 disabled:cursor-not-allowed disabled:opacity-60" type="submit">{status === "sending" ? "Sending..." : "Send message"}<Send size={15}/></button>{status === "success" && <p className="mt-3 text-sm text-emerald-300">Message sent — I&apos;ll get back to you soon.</p>}{status === "error" && <p className="mt-3 text-sm text-rose-300">Something went wrong, please try again or email me directly.</p>}</form>;
+  function clear(field: Field) {
+    if (errors[field]) setErrors((prev) => ({ ...prev, [field]: undefined }));
+  }
+
+  const input =
+    "mt-2 block w-full rounded-sm border border-muted bg-paper px-4 py-3 text-base text-ink transition-colors duration-fast hover:border-ink focus:border-ink focus-visible:outline-offset-0 aria-[invalid=true]:border-signal";
+
+  function fieldProps(field: Field) {
+    return {
+      id: `contact-${field}`,
+      name: field,
+      "aria-invalid": Boolean(errors[field]),
+      "aria-describedby": errors[field] ? `contact-${field}-error` : undefined,
+      onInput: () => clear(field),
+      className: input,
+    };
+  }
+
+  function error(field: Field) {
+    return errors[field] && <p id={`contact-${field}-error`} className="mt-1.5 text-sm text-signal">{errors[field]}</p>;
+  }
+
+  return (
+    <form ref={form} onSubmit={onSubmit} noValidate aria-labelledby="contact-form-title" className="rounded border border-ink bg-raised p-5 sm:p-8">
+      <h3 id="contact-form-title" className="label"><span className="text-signal">610</span> · Send a message</h3>
+      <p className="mt-2 text-sm text-muted">All three fields are required.</p>
+      <div className="mt-6 space-y-5">
+        <div>
+          <label htmlFor="contact-name" className="text-sm font-medium">Name</label>
+          <input {...fieldProps("name")} type="text" autoComplete="name" />
+          {error("name")}
+        </div>
+        <div>
+          <label htmlFor="contact-email" className="text-sm font-medium">Email</label>
+          <input {...fieldProps("email")} type="email" autoComplete="email" inputMode="email" />
+          {error("email")}
+        </div>
+        <div>
+          <label htmlFor="contact-message" className="text-sm font-medium">Message</label>
+          <textarea {...fieldProps("message")} rows={5} />
+          {error("message")}
+        </div>
+        <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
+      </div>
+      <button
+        type="submit"
+        disabled={status.state === "sending"}
+        aria-busy={status.state === "sending"}
+        className="btn btn-primary mt-7 w-full justify-center disabled:cursor-wait disabled:opacity-70 sm:w-auto"
+      >
+        {status.state === "sending" ? (
+          <>
+            <span aria-hidden="true" className="h-4 w-4 animate-spin rounded-full border-2 border-current border-r-transparent motion-reduce:animate-none" />
+            Sending…
+          </>
+        ) : (
+          <>Send message <span aria-hidden="true" className="arrow">→</span></>
+        )}
+      </button>
+      <div role="status" aria-live="polite" className="mt-4 text-sm empty:hidden">
+        {status.state === "sent" && (
+          <p className="flex items-start gap-3 rounded-sm border border-posted p-3 text-posted">
+            <span className="stamp shrink-0 px-1.5 py-0 text-[10px]">Posted</span>
+            <span>Message sent. I&apos;ll reply to {status.email}.</span>
+          </p>
+        )}
+        {status.state === "failed" && <p className="rounded-sm border border-signal p-3 text-signal">{status.message}</p>}
+      </div>
+    </form>
+  );
 }

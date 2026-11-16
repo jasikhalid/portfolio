@@ -2,46 +2,230 @@
 @tailwind components;
 @tailwind utilities;
 
-:root { --bg: #08090d; --fg: #f4f4f5; --muted: #989bad; --line: rgba(255,255,255,.1); --accent: #8b5cf6; --font-geist: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
-html { scroll-behavior: smooth; background: var(--bg); }
-body { margin: 0; color: var(--fg); background: var(--bg); font-family: var(--font-geist), sans-serif; }
-* { box-sizing: border-box; }
-::selection { background: #7c3aed; color: white; }
-.site-grid { background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px); background-size: 42px 42px; }
-.section { position: relative; max-width: 1180px; margin: auto; padding: 7rem 1.5rem; }
-.eyebrow { font: 500 .72rem var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: #67e8f9; }
-.section-title { font-size: clamp(2.25rem, 5vw, 4.25rem); letter-spacing: -.06em; line-height: .95; margin: .65rem 0 1.2rem; }
-.muted { color: var(--muted); }
-.gradient-text { background: linear-gradient(115deg,#c084fc 15%,#60e9ff 55%,#9cf7cc); -webkit-background-clip:text; background-clip:text; color: transparent; }
-.glass { background: rgba(17,19,27,.68); border: 1px solid var(--line); backdrop-filter: blur(16px); }
-.nav-link { color: #b7b9c6; font: 500 .75rem var(--font-mono); transition: color .2s; }
-.nav-link:hover,.nav-link.active { color: #67e8f9; }
-.tag { display:inline-flex; border:1px solid rgba(255,255,255,.12); border-radius:999px; padding:.35rem .6rem; font:500 .68rem var(--font-mono); color:#cdd0dc; }
-.button-primary { display:inline-flex; align-items:center; gap:.55rem; border-radius:.7rem; padding:.85rem 1.1rem; background:linear-gradient(120deg,#7c3aed,#06b6d4); color:white; font-weight:700; font-size:.9rem; box-shadow:0 12px 38px rgba(109,40,217,.28); transition:transform .2s, box-shadow .2s; }
-.button-primary:hover { transform:translateY(-2px); box-shadow:0 16px 42px rgba(6,182,212,.25); }
-.button-secondary { display:inline-flex; align-items:center; gap:.55rem; border:1px solid var(--line); border-radius:.7rem; padding:.85rem 1.1rem; color:#e9e9ee; font-weight:600; font-size:.9rem; transition: background .2s; }
-.button-secondary:hover { background:rgba(255,255,255,.07); }
-.reveal, .hero-entrance, .hero-role { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: no-preference) {
-  .hero-entrance { animation: hero-enter .55s ease-out both; }
-  .hero-entrance-2 { animation-delay: .1s; }
-  .hero-entrance-3 { animation-delay: .25s; }
-  .hero-entrance-4 { animation-delay: .3s; }
-  .hero-role { animation: role-enter .18s ease-out both; }
-  @supports (animation-timeline: view()) {
-    .reveal { animation: reveal-enter .55s ease-out both; animation-delay: var(--reveal-delay, 0s); animation-timeline: view(); animation-range: entry 0% cover 30%; }
+/* Black and cream tokens. Every text pair passes WCAG AA; most pass AAA. */
+:root {
+  color-scheme: light;
+  --paper: #f4eedf;
+  --raised: #faf7ef;
+  --sunken: #e9e1cc;
+  --ink: #111111;
+  --muted: #56524a;
+  --rule: #d6ccb4;
+  --signal: #7a5a28;
+  --on-signal: #faf7ef;
+  --posted: #1c6447;
+  --lift: 0 1px 0 rgb(17 17 17 / 0.05), 0 24px 48px -24px rgb(17 17 17 / 0.3);
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --t-fast: 160ms;
+  --t-base: 320ms;
+  --t-slow: 700ms;
+  --t-draw: 1100ms;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #0f0f0e;
+    --raised: #1a1a18;
+    --sunken: #0a0a09;
+    --ink: #f2ead7;
+    --muted: #aaa496;
+    --rule: #2c2b27;
+    --signal: #dcc69a;
+    --on-signal: #0f0f0e;
+    --posted: #5cc497;
+    --lift: 0 24px 48px -24px rgb(0 0 0 / 0.7);
   }
 }
-@keyframes hero-enter { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes role-enter { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes reveal-enter { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
-.light { --bg: #f5f5f7; --fg: #12121a; --muted: #5d6070; --line: rgba(15,18,27,.13); }
-.light .site-grid { background-image: linear-gradient(rgba(15,18,27,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(15,18,27,.055) 1px, transparent 1px); }
-.light .glass { background: rgba(255,255,255,.78); }
-.light .bg-\[\#0b0c12\] { background: #ececf1 !important; }
-.light .text-zinc-400 { color: #555969; }
-.light .text-zinc-500, .light .text-zinc-600 { color: #747887; }
-.light .text-zinc-300 { color: #303442; }
-.light .tag { color: #404452; border-color: rgba(15,18,27,.16); }
-.light input, .light textarea { background: rgba(255,255,255,.8); color: #12121a; }
-@media (prefers-reduced-motion: reduce) { *,::before,::after { animation-duration:.01ms !important; transition-duration:.01ms !important; scroll-behavior:auto !important; } }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #0f0f0e;
+  --raised: #1a1a18;
+  --sunken: #0a0a09;
+  --ink: #f2ead7;
+  --muted: #aaa496;
+  --rule: #2c2b27;
+  --signal: #dcc69a;
+  --on-signal: #0f0f0e;
+  --posted: #5cc497;
+  --lift: 0 24px 48px -24px rgb(0 0 0 / 0.7);
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 5rem; -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+::selection { background: var(--signal); color: var(--on-signal); }
+:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; border-radius: 2px; }
+h1, h2, h3 { text-wrap: balance; }
+p { text-wrap: pretty; }
+
+@layer components {
+  /* Mono field label, the ledger's column heading. */
+  .label { font-family: var(--font-geist-mono), ui-monospace, monospace; font-size: 0.75rem; line-height: 1.4; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+  .tnum { font-variant-numeric: tabular-nums; }
+  .page { margin-inline: auto; max-width: 1360px; padding-inline: 1.25rem; }
+  @media (min-width: 640px) { .page { padding-inline: 2rem; } }
+  @media (min-width: 1024px) { .page { padding-inline: 3rem; } }
+
+  .tag { display: inline-flex; align-items: center; gap: 0.375rem; border: 1px solid var(--rule); border-radius: 4px; padding: 0.2rem 0.5rem; font-family: var(--font-geist-mono), ui-monospace, monospace; font-size: 0.75rem; line-height: 1.4; }
+
+  /* Text link with an underline that draws in. */
+  .link { background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat; transition: background-size var(--t-base) var(--ease-out), color var(--t-fast); }
+  .link:hover { color: var(--signal); }
+
+  .btn { position: relative; display: inline-flex; min-height: 3rem; align-items: center; gap: 0.625rem; border-radius: 4px; padding-inline: 1.375rem; font-weight: 500; transition: background-color var(--t-fast), color var(--t-fast), border-color var(--t-fast); }
+  .btn-primary { background: var(--ink); color: var(--paper); }
+  .btn-primary:hover { background: var(--signal); color: var(--on-signal); }
+  .btn-ghost { border: 1px solid var(--rule); }
+  .btn-ghost:hover { border-color: var(--ink); }
+  .btn .arrow { transition: transform var(--t-base) var(--ease-out); }
+  .btn:hover .arrow { transform: translateX(3px); }
+
+  /* The "posted" stamp. */
+  .stamp { display: inline-flex; align-items: center; gap: 0.5rem; border: 1.5px solid currentColor; border-radius: 4px; padding: 0.25rem 0.6rem; font-family: var(--font-geist-mono), ui-monospace, monospace; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }
+  .dot { display: inline-block; height: 0.5rem; width: 0.5rem; border-radius: 999px; background: currentColor; }
+}
+
+/* ---------- Motion ---------- */
+/* Everything below is transform/opacity only, and only runs when the visitor allows motion. */
+@media (prefers-reduced-motion: no-preference) {
+  /* Page-load sequence: ~1s total, text is painted on the first frame (transform only, no opacity on the h1). */
+  .enter { animation: enter var(--t-slow) var(--ease-out) both; animation-delay: var(--d, 0ms); }
+  .enter-line { display: block; animation: enter-line 900ms var(--ease-out) both; animation-delay: var(--d, 0ms); }
+  .draw { transform-origin: left; animation: draw var(--t-draw) var(--ease-out) both; animation-delay: var(--d, 0ms); }
+
+  .row-hover { transition: background-color var(--t-base) var(--ease-out); }
+  .row-hover .row-arrow { transition: transform var(--t-base) var(--ease-out); }
+  .row-hover:hover .row-arrow { transform: translate(4px, -4px); }
+  .link { background-size: 0% 1px; }
+  .link:hover, .link:focus-visible { background-size: 100% 1px; }
+
+  .pulse { animation: pulse 2.4s var(--ease-in-out) 4; } /* finite, so nothing blinks for long (WCAG 2.2.2) */
+}
+
+/* ---------- Hover ---------- */
+/* A small colour shift under the pointer: rows get a soft cream wash that bleeds past the text, and each row's key
+   (date, code, label) turns caramel. Colour only, so it also applies under reduced motion. Touch screens skip it. */
+@media (hover: hover) {
+  .tint { transition: background-color var(--t-base) var(--ease-out), box-shadow var(--t-base) var(--ease-out); }
+  .tint:hover { background-color: var(--raised); box-shadow: -0.75rem 0 0 var(--raised), 0.75rem 0 0 var(--raised); }
+  .tint-key { transition: color var(--t-fast); }
+  :is(.tint, .tint-cell):hover .tint-key { color: var(--signal); }
+  .tint-cell { transition: background-color var(--t-base) var(--ease-out); }
+  .tint-cell:hover { background-color: var(--raised); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+@keyframes enter { from { opacity: 0; transform: translateY(14px); } }
+@keyframes enter-line { from { transform: translateY(0.32em); } }
+@keyframes draw { from { transform: scaleX(0); } }
+@keyframes fade { from { opacity: 0; } }
+@keyframes pulse { 50% { opacity: 0.35; } }
+
+/* ── Scroll motion ──────────────────────────────────────────────────────────────────────────────────────────────
+   One easing (--ease-out), 0.4–0.8s, 16–40px. Everything is transform/opacity only and progressive:
+   - Reveals: hidden only under html[data-rv], which the inline script in layout.tsx sets; it reveals once.
+   - Hero exit, progress bar, timeline line, stacked case files: CSS scroll-driven animations (no JS, no scroll
+     listeners). Browsers without animation-timeline just show the static page.
+   Reduced motion: reveals become a plain fade; no parallax, stacking, progress bar or smooth scroll. */
+
+@media (prefers-reduced-motion: no-preference) {
+  html[data-rv] .reveal { transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out), background-color var(--t-base) var(--ease-out), box-shadow var(--t-base) var(--ease-out); }
+  html[data-rv] .reveal:not([data-shown]) { opacity: 0; transform: translateY(24px); }
+  html[data-rv] .reveal-rule { transform-origin: left; transition: transform 800ms var(--ease-out); }
+  html[data-rv] .reveal-rule:not([data-shown]) { transform: scaleX(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-rv] .reveal { transition: opacity 400ms linear, transform 0s, background-color var(--t-base) var(--ease-out), box-shadow var(--t-base) var(--ease-out); }
+  html[data-rv] .reveal:not([data-shown]) { opacity: 0; }
+}
+/* Stagger for elements that enter together (set by the script, capped at 5 steps). */
+[data-rd="1"] { transition-delay: 70ms, 70ms, 0s, 0s !important; }
+[data-rd="2"] { transition-delay: 140ms, 140ms, 0s, 0s !important; }
+[data-rd="3"] { transition-delay: 210ms, 210ms, 0s, 0s !important; }
+[data-rd="4"] { transition-delay: 280ms, 280ms, 0s, 0s !important; }
+[data-rd="5"] { transition-delay: 350ms, 350ms, 0s, 0s !important; }
+@media print { html[data-rv] .reveal, html[data-rv] .reveal-rule { opacity: 1 !important; transform: none !important; } }
+
+.scroll-progress { display: none; }
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    /* Thin reading-progress bar along the top edge. */
+    .scroll-progress {
+      display: block; position: fixed; inset: 0 0 auto; z-index: 60; height: 2px; background: var(--signal);
+      transform-origin: left; animation: draw linear both; animation-timeline: scroll(root);
+    }
+
+    /* Hero exit: drifts down (so it moves slower than the page), shrinks slightly and fades as you scroll past. */
+    .hero-exit {
+      --hx-y: 6vh; --hx-s: 0.985; --hx-o: 0.5;
+      transform-origin: 50% 0; animation: hero-exit linear both; animation-timeline: scroll(root); animation-range: 0 110vh;
+    }
+    @media (min-width: 1024px) { .hero-exit { --hx-y: 12vh; --hx-s: 0.97; --hx-o: 0.4; } }
+
+    /* Experience timeline: the line draws itself as its top passes 60% of the viewport, finishing as the bottom does. */
+    .timeline-line { transform-origin: top; animation: draw-y linear both; animation-timeline: view(); animation-range: cover 40vh exit 40vh; }
+  }
+}
+@keyframes hero-exit { to { opacity: var(--hx-o); transform: translateY(var(--hx-y)) scale(var(--hx-s)); } }
+@keyframes draw-y { from { transform: scaleY(0); } }
+
+/* Selected work: case files stack like records filed on top of each other. Desktop only, and only when the window is
+   tall enough to show a whole case file while it is pinned; otherwise they are ordinary reveals. */
+@media (prefers-reduced-motion: no-preference) and (min-width: 1024px) and (min-height: 760px) {
+  .stack > li { position: sticky; top: calc(4.5rem + var(--i, 0) * 1.25rem); background: var(--paper); box-shadow: 0 -1px 0 var(--rule); }
+  .stack > li:focus-within { z-index: 1; } /* a focused case file is never covered by the next one */
+
+  /* The file underneath steps back as the next one slides over it, driven by the next file's own view timeline. */
+  @supports (animation-timeline: view()) {
+    .stack { timeline-scope: --file-2, --file-3, --file-4, --file-5, --file-6; }
+    .stack > li:nth-child(2) { view-timeline-name: --file-2; }
+    .stack > li:nth-child(3) { view-timeline-name: --file-3; }
+    .stack > li:nth-child(4) { view-timeline-name: --file-4; }
+    .stack > li:nth-child(5) { view-timeline-name: --file-5; }
+    .stack > li:nth-child(6) { view-timeline-name: --file-6; }
+    .stack > li > article { transform-origin: 50% 0; animation: file-away linear both; animation-range: cover 0% cover calc(100vh - 6rem); }
+    .stack > li:nth-child(1) > article { animation-timeline: --file-2; }
+    .stack > li:nth-child(2) > article { animation-timeline: --file-3; }
+    .stack > li:nth-child(3) > article { animation-timeline: --file-4; }
+    .stack > li:nth-child(4) > article { animation-timeline: --file-5; }
+    .stack > li:nth-child(5) > article { animation-timeline: --file-6; }
+    .stack > li:last-child > article { animation: none; }
+  }
+}
+@keyframes file-away { to { transform: scale(0.94); opacity: 0.45; } }
+
+dialog::backdrop { background: rgb(10 10 9 / 0.55); backdrop-filter: blur(2px); }
+
+/* Hero figure: slabs drop into place once on load. */
+@media (prefers-reduced-motion: no-preference) {
+  .slab { animation: slab 900ms var(--ease-out) both; animation-delay: var(--d, 0ms); }
+}
+@keyframes slab { from { opacity: 0; transform: translateY(-28px); } }
+
+/* Mockups come alive as they scroll into view: bars grow, fills run, statusbar steps light up. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .mock-bar { transform-origin: bottom; animation: grow linear both; animation-timeline: view(); animation-range: entry 10% cover 40%; }
+    .mock-fill { transform-origin: left; animation: draw linear both; animation-timeline: view(); animation-range: entry 10% cover 40%; }
+    .mock-step { animation: fade linear both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
+  }
+}
+@keyframes grow { from { transform: scaleY(0.08); } }
+
+/* Odoo-style statusbar chevrons (tablet and up). */
+@media (min-width: 640px) {
+  .chevron { clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 0 100%, 14px 50%); padding-left: 1.75rem; }
+  .chevron:first-child { clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 0 100%); padding-left: 1rem; }
+}

@@ -1,2 +1,14 @@
-import { contacts } from "@/app/data";
-export default function Footer(){return <footer className="border-t border-white/[.07] px-6 py-7"><div className="mx-auto flex max-w-6xl flex-wrap justify-between gap-4 font-mono text-[10px] text-zinc-500"><p>© {new Date().getFullYear()} Muhammed Jasi. Built with Next.js.</p><div className="flex gap-4"><a href={contacts.github}>GITHUB</a><a href={contacts.linkedin}>LINKEDIN</a><a href={`mailto:${contacts.email}`}>EMAIL</a></div></div></footer>}
+import { site } from "@/content/site";
+
+export default function Footer() {
+  return (
+    <footer className="page pb-10">
+      <div className="h-px bg-ink" />
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
+        <p className="label tnum">© {new Date().getFullYear()} {site.name} · {site.location.label}</p>
+        <p className="label hidden sm:block">Built with Next.js · Set in Geist</p>
+        <a href="#top" className="label flex min-h-11 items-center hover:text-ink">Back to top ↑</a>
+      </div>
+    </footer>
+  );
+}

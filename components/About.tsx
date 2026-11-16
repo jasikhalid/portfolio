@@ -1,4 +1,38 @@
-import { MapPin, GraduationCap, BriefcaseBusiness } from "lucide-react";
-import { techStack } from "@/app/data";
-import { Reveal } from "./Reveal";
-export default function About() { return <section id="about" className="section"><Reveal><p className="eyebrow">01 / About me</p><div className="grid gap-12 lg:grid-cols-[1.1fr_.9fr]"><div><h2 className="section-title">Builder of systems<br/>that <span className="gradient-text">keep moving.</span></h2><p className="max-w-2xl text-lg leading-relaxed text-zinc-400">I&apos;m an Odoo developer with hands-on framework training on Odoo 19 and direct module-building experience across Inventory, Sales, Fleet, and Website apps. I&apos;ve built a custom accounting dashboard and an end-to-end Vehicle Repair Management system spanning ORM, QWeb reports, wizards, security rules, and OWL components.</p><p className="mt-4 max-w-2xl leading-relaxed text-zinc-500">Backed by full-stack experience in Python, Django, React, and REST API integrations, I like taking a messy business process and giving it a calmer, more reliable home.</p></div><div className="grid content-start gap-3 pt-3"><div className="glass flex gap-4 rounded-xl p-4"><GraduationCap className="mt-1 text-cyan-300" size={19}/><div><p className="font-semibold">B.Sc. Computer Science</p><p className="mt-1 text-sm text-zinc-500">University of Calicut · Gems Arts & Science College<br/>06/2022 — 03/2025</p></div></div><div className="glass flex gap-4 rounded-xl p-4"><BriefcaseBusiness className="mt-1 text-violet-300" size={19}/><div><p className="font-semibold">Ready for the next build</p><p className="mt-1 text-sm text-zinc-500">Open to full-time roles and freelance projects.</p></div></div><div className="glass flex gap-4 rounded-xl p-4"><MapPin className="mt-1 text-pink-300" size={19}/><div><p className="font-semibold">Manjeri, Kerala, India</p><p className="mt-1 text-sm text-zinc-500">Open to relocation.</p></div></div></div></div></Reveal><Reveal delay={.1} className="mt-14"><p className="mb-4 font-mono text-[10px] tracking-[.17em] text-zinc-500">DAILY TOOLKIT</p><div className="flex flex-wrap gap-2">{techStack.map((x,i)=><span className="tag" key={x}><b className="mr-2 text-cyan-300">0{i+1}</b>{x}</span>)}</div></Reveal></section> }
+import Image from "next/image";
+import { about, site } from "@/content/site";
+import Section from "./Section";
+
+const facts = [
+  { label: "Studied", value: "B.Sc. Computer Science, University of Calicut", note: "2022 – 2025" },
+  { label: "Trained", value: "Odoo Python Development, Cybrosys Technologies", note: "Six months, 2026" },
+  { label: "Works at", value: site.employer.name, note: site.employer.place },
+  { label: "Open to", value: "Relocating to the Gulf, remote roles, freelance", note: site.location.label },
+];
+
+export default function About() {
+  return (
+    <Section id="about" code="400" label="About" title="A little about me.">
+      <div className="grid gap-12 lg:grid-cols-12 lg:gap-8">
+        <div className="reveal space-y-5 text-lead lg:col-span-7 lg:col-start-4">
+          {about.map((paragraph) => <p key={paragraph} className="max-w-prose">{paragraph}</p>)}
+        </div>
+        <div className="reveal lg:col-span-2 lg:col-start-11">
+          {site.photo && (
+            <div className="relative mx-auto aspect-[2/3] w-full max-w-[220px]">
+              <Image src={site.photo.src} alt={site.photo.alt} fill sizes="220px" className="object-contain" />
+            </div>
+          )}
+        </div>
+        <dl className="reveal grid gap-px border-y border-rule bg-rule sm:grid-cols-2 lg:col-span-9 lg:col-start-4 lg:grid-cols-4">
+          {facts.map((fact) => (
+            <div key={fact.label} className="tint-cell bg-paper py-5 sm:pr-5 sm:[&:nth-child(even)]:pl-5 lg:[&:not(:first-child)]:pl-5">
+              <dt className="tint-key label">{fact.label}</dt>
+              <dd className="mt-2 font-medium leading-snug">{fact.value}</dd>
+              <dd className="mt-1 text-sm text-muted">{fact.note}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </Section>
+  );
+}

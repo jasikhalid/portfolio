@@ -1,0 +1,68 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
+import { ImageResponse } from "next/og";
+import { hero, site, stages } from "@/content/site";
+
+export const alt = `${site.name}, ${site.role} at ${site.employer.name}`;
+export const size = { width: 1200, height: 630 };
+export const contentType = "image/png";
+
+const PAPER = "#f4eedf";
+const INK = "#111111";
+const MUTED = "#56524a";
+const RULE = "#d6ccb4";
+const SIGNAL = "#7a5a28";
+
+const fonts = join(process.cwd(), "node_modules/geist/dist/fonts");
+
+// The site's record header and headline, drawn as a ledger page. SVG arrows because Satori has no clip-path.
+export default async function OpengraphImage() {
+  const [sans, sansBold, mono] = await Promise.all([
+    readFile(join(fonts, "geist-sans/Geist-Regular.ttf")),
+    readFile(join(fonts, "geist-sans/Geist-SemiBold.ttf")),
+    readFile(join(fonts, "geist-mono/GeistMono-Regular.ttf")),
+  ]);
+  const last = stages.length - 1;
+  return new ImageResponse(
+    (
+      <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", padding: "56px 64px", background: PAPER, color: INK, fontFamily: "Geist" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", fontFamily: "Geist Mono", fontSize: 20, color: MUTED, letterSpacing: 1 }}>
+          <div style={{ display: "flex" }}><span style={{ color: SIGNAL }}>000</span>&nbsp;· RECORD / {site.name.toUpperCase()}</div>
+          <div style={{ display: "flex" }}>{`${site.role.toUpperCase()} · ${site.employer.name.toUpperCase()}`}</div>
+        </div>
+        <div style={{ display: "flex", height: 2, background: INK, marginTop: 18 }} />
+        <div style={{ display: "flex", flexDirection: "column", marginTop: 48, fontSize: 100, lineHeight: 0.96, letterSpacing: -4.5, fontWeight: 600 }}>
+          {hero.headlineLines.map((line, i) => (
+            <div key={line} style={{ display: "flex", color: i === hero.headlineLines.length - 1 ? SIGNAL : INK }}>{line}</div>
+          ))}
+        </div>
+        <div style={{ display: "flex", marginTop: "auto" }}>
+          {stages.map((stage, i) => {
+            const fill = i === last ? INK : "#e9e1cc";
+            return (
+              <div key={stage.id} style={{ display: "flex", flexGrow: stage.label.length, height: 76 }}>
+                <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", flexGrow: 1, padding: "0 18px", background: fill, borderTop: i === last ? "none" : `1px solid ${RULE}` }}>
+                  <div style={{ fontSize: 20, whiteSpace: "nowrap", color: i === last ? PAPER : INK }}>{stage.label}</div>
+                  <div style={{ fontFamily: "Geist Mono", fontSize: 16, color: i === last ? PAPER : MUTED }}>{stage.period}</div>
+                </div>
+                {i < last && (
+                  <svg width="22" height="76" viewBox="0 0 22 76">
+                    <path d="M0 0 L18 38 L0 76 Z" fill={fill} />
+                  </svg>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    ),
+    {
+      ...size,
+      fonts: [
+        { name: "Geist", data: sans, weight: 400, style: "normal" },
+        { name: "Geist", data: sansBold, weight: 600, style: "normal" },
+        { name: "Geist Mono", data: mono, weight: 400, style: "normal" },
+      ],
+    },
+  );
+}
